@@ -31,6 +31,7 @@ for i in range(3):
 for i in range(3):
 	TouchAction(driver).press(x=x2,y=y1).move_to(x=x1,y=y1).release().perform()
 	time.sleep(2)'''
+#讀取testcase路徑
 if (desired_caps['platformName'] == 'Android'):
     testcase_path = ".//testcase/Android"
 else:

@@ -14,7 +14,7 @@ git add -f --all
   
 git add 並不會直接寫入git 的記錄檔，而是會被另外記錄起來
 git commit 後才會一次執行寫入所有的指令
-git commit -m "<你想說的話>"
+git commit -m "yoyohobc"
 
 git config --global user.email "yoyohobc@gmail.com"。
 git config --global user.name "yoyohobc"

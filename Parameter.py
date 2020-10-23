@@ -10,6 +10,8 @@ random = Random()
 OS = 'Windows'
 desired_caps = {
     'platformName':'Android',
+    #'platformVersion':'10',
+    #'deviceName':'Mi 9T',
     'platformVersion':'5.1.1',
     'deviceName':'Android Emulator',
     'appPackage':'com.szoc.zb.cs',

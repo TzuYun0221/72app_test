@@ -30,6 +30,7 @@ class WebDriverTests(unittest.TestCase):
 		for i in range(3):
 			TouchAction(app).press(x=x1,y=y1).move_to(x=x2,y=y1).release().perform()
 			time.sleep(1)
-		for i in range(3):
-			TouchAction(app).press(x=x2,y=y1).move_to(x=x1,y=y1).release().perform()
-			time.sleep(1)
+
+		app.find_element_by_xpath("//*[@text='立即体验']").click()
+		time.sleep(3)
+		app.find_element_by_id("com.szoc.zb.cs:id/iv_tutorial_map").click()
