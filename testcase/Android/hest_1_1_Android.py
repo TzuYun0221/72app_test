@@ -8,7 +8,7 @@ class WebDriverTests(unittest.TestCase):
 		print(" -- set up finished -- ")
 
 	def tearDown(self):
-		self.driver.quit()
+		#self.driver.quit()
 		print('-- tear down finished -- ')
 
 
@@ -32,5 +32,15 @@ class WebDriverTests(unittest.TestCase):
 			time.sleep(1)
 
 		app.find_element_by_xpath("//*[@text='立即体验']").click()
-		time.sleep(3)
-		app.find_element_by_id("com.szoc.zb.cs:id/iv_tutorial_map").click()
+		while True:
+			try:
+				app.find_element_by_id('com.szoc.zb.cs:id/iv_tutorial_map')
+				break
+			except NoSuchElementException:
+				continue
+		#y=0.7小白
+		#y=0.84老司機
+		TouchAction(app).tap(element=None, x=x/2, y=y*0.7, count=2).perform()
+		#time.sleep(10)
+		print('ok')
+		#app.find_element_by_xpath("//*[@text='小白']").click()
