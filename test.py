@@ -13,24 +13,7 @@ from selenium.common.exceptions import NoSuchElementException
 cov = coverage.coverage()
 cov.start()
 
-'''x=driver.get_window_size()['width']
-y=driver.get_window_size()['height']
-x2=x*0.1
-y1=y*0.5
-x1=x*0.9
-while True:
-	try:
-		driver.find_element_by_id('com.szoc.zb.cs:id/userhelp_page')
-		break
-	except NoSuchElementException:
-		continue
-#el01 = driver.find_element_by_id('com.szoc.zb.cs:id/userhelp_page')
-for i in range(3):
-	TouchAction(driver).press(x=x1,y=y1).move_to(x=x2,y=y1).release().perform()
-	time.sleep(2)
-for i in range(3):
-	TouchAction(driver).press(x=x2,y=y1).move_to(x=x1,y=y1).release().perform()
-	time.sleep(2)'''
+
 #讀取testcase路徑
 if (desired_caps['platformName'] == 'Android'):
     testcase_path = ".//testcase/Android"
@@ -63,7 +46,7 @@ else:
 suite = creat_suite()
 file_results = open(report_path, "wb")
 enviroments = u"  執行環境:"+OS+" "+"裝置:"+desired_caps['deviceName']+" "+"版本:"+desired_caps['platformName']+" "+desired_caps['platformVersion']
-runner = HTMLTestRunner.HTMLTestRunner(stream=file_results, title=u"72app Android",description=enviroments, verbosity=2)
+runner = HTMLTestRunner.HTMLTestRunner(stream=file_results, title=u"72app",description=enviroments, verbosity=2)
 # verbosity参数可以控制执行结果的输出，0 是简单报告、1 是一般报告、2 是详细报告。
 runner.run(suite)
 file_results.close()
