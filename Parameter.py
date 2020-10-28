@@ -10,6 +10,8 @@ random = Random()
 OS = 'Windows'
 #指定apk路徑
 apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
+#指定舊版本apk路徑(覆蓋安裝測試)
+old_apk_url = 'C:/Users/Angela/72apptest/20200812-uat-cs-1.8.2-release.apk'
 #指定裝置、版本、安裝包
 desired_caps = {
     #'platformName':'Android',
