@@ -63,7 +63,7 @@ else:
 suite = creat_suite()
 file_results = open(report_path, "wb")
 enviroments = u"  執行環境:"+OS+" "+"裝置:"+desired_caps['deviceName']+" "+"版本:"+desired_caps['platformName']+" "+desired_caps['platformVersion']
-runner = HTMLTestRunner.HTMLTestRunner(stream=file_results, title=u"72app",description=enviroments, verbosity=2)
+runner = HTMLTestRunner.HTMLTestRunner(stream=file_results, title=u"72app Android",description=enviroments, verbosity=2)
 # verbosity参数可以控制执行结果的输出，0 是简单报告、1 是一般报告、2 是详细报告。
 runner.run(suite)
 file_results.close()
