@@ -26,7 +26,7 @@ class WebDriverTests(unittest.TestCase):
 				break
 			except NoSuchElementException:
 				continue
-		time.sleep(3)
+		time.sleep(10)
 		#檢查app是否安裝(開戶引導頁是否正常顯示)
 		try:
 			app.find_element_by_id('com.szoc.zb.cs:id/imageview')
