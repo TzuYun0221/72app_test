@@ -10,6 +10,10 @@ random = Random()
 OS = 'Windows'
 #指定apk路徑
 apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
+#應用名稱&版本號(用於關於我們檢查)
+app_name_expect = 'ISTONE'
+app_version_expect = 'V_1.8.3'
+
 #指定舊版本apk路徑(覆蓋安裝測試)
 #old_apk_url = 'C:/Users/Angela/72apptest/20200812-uat-cs-1.8.2-release.apk'
 #指定裝置、版本、安裝包
@@ -23,7 +27,7 @@ desired_caps = {
     'deviceName':'Mi 9t',
     'appPackage':'com.szoc.zb.cs',
     'appActivity':'gw.com.android.ui.WelcomeActivity',
-    'newCommandTimeout':10000,
+    #'newCommandTimeout':6000,
     'noReset':True
 }
 #每次開啟重置app
@@ -33,7 +37,7 @@ desired_caps_reset = {
     'deviceName':desired_caps['deviceName'],
     'appPackage':desired_caps['appPackage'],
     'appActivity':desired_caps['appActivity'],
-    'newCommandTimeout':desired_caps['newCommandTimeout'],
+    #'newCommandTimeout':desired_caps['newCommandTimeout'],
     'noReset':False
 }
 desired_install = {

@@ -20,8 +20,8 @@ class WebDriverTests(unittest.TestCase):
 		print('-- tear down finished -- ')
 
 
-	def test_2_3_app_name_android_應用名稱檢查(self):
-		print('==========test_2_3_app_name_android_應用名稱檢查==========')
+	def test_2_3_app_name_android_應用名稱與版本號檢查(self):
+		print('==========test_2_3_app_name_android_應用名稱與版本號檢查==========')
 		#我的
 		self.driver.find_element_by_xpath("//*[@text='我的']").click()
 		#設定
@@ -30,10 +30,18 @@ class WebDriverTests(unittest.TestCase):
 		self.driver.find_element_by_xpath("//*[@text='关于我们']").click()
 		#應用名稱檢查(取前6字)
 		app_name = self.driver.find_element_by_id('com.szoc.zb.cs:id/item_title').text[:6]
-		if(app_name == 'ISTONE'):
+		#應用版本檢查(取後7字)
+		app_version = self.driver.find_element_by_id('com.szoc.zb.cs:id/item_title').text[7:]
+		if(app_name == app_name_expect):
 			print('正確!應用名稱顯示:',app_name)
 		else:
 			print('錯誤!應用名稱顯示:',app_name)
 			raise AssertionError('錯誤!應用名稱顯示:',app_name)
+		
+		if(app_version == app_version_expect):
+			print('正確!版本號顯示:',app_version)
+		else:
+			print('錯誤!版本號顯示:',app_version)
+			raise AssertionError('錯誤!版本號顯示:',app_version)
 			
 		
