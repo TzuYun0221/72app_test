@@ -4,6 +4,8 @@ from Parameter import *
 
 class WebDriverTests(unittest.TestCase):
 	def setUp(self):
+		#點擊允許
+		click_allow(self)
 		#檢查app是否安裝,若沒安裝則會自行安裝(Parameter)
 		check_app_installed(self)
 		#開啟app的參數

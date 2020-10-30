@@ -27,7 +27,7 @@ desired_caps = {
     'deviceName':'Mi 9t',
     'appPackage':'com.szoc.zb.cs',
     'appActivity':'gw.com.android.ui.WelcomeActivity',
-    #'newCommandTimeout':6000,
+    'newCommandTimeout':6000,
     'noReset':True
 }
 #每次開啟重置app
@@ -37,7 +37,7 @@ desired_caps_reset = {
     'deviceName':desired_caps['deviceName'],
     'appPackage':desired_caps['appPackage'],
     'appActivity':desired_caps['appActivity'],
-    #'newCommandTimeout':desired_caps['newCommandTimeout'],
+    'newCommandTimeout':desired_caps['newCommandTimeout'],
     'noReset':False
 }
 desired_install = {
@@ -65,6 +65,13 @@ def skip_ads(self):
 			self.driver.find_element_by_id(element).click()
 		except NoSuchElementException:
 			continue
+def click_allow(self):
+	try:
+		self.driver.find_element_by_xpath("//*[@text='允許']").click()
+		print('點擊允許')
+	except NoSuchElementException:
+		print('允許未跳出')
+		
 
 
 
