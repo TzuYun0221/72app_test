@@ -23,7 +23,7 @@ desired_caps = {
     'deviceName':'Mi 9t',
     'appPackage':'com.szoc.zb.cs',
     'appActivity':'gw.com.android.ui.WelcomeActivity',
-    'newCommandTimeout':6000,
+    'newCommandTimeout':10000,
     'noReset':True
 }
 #每次開啟重置app
@@ -51,6 +51,16 @@ def check_app_installed(self):
 		driver_install.install_app(apk_url)
 		print('APP安裝完畢')
 	driver_install.quit()
+#跳過廣告
+def skip_ads(self):
+	#1.跳過開屏廣告 2.關版本升級 3.關彈窗廣告
+	#沒有彈出版本升級或廣告就跳過不執行
+	element_list = ['com.szoc.zb.cs:id/tv_skip','com.szoc.zb.cs:id/btn_cancel','com.szoc.zb.cs:id/close_btn']
+	for element in element_list:
+		try:
+			self.driver.find_element_by_id(element).click()
+		except NoSuchElementException:
+			continue
 
 
 
