@@ -4,10 +4,6 @@ from Parameter import *
 
 class WebDriverTests(unittest.TestCase):
 	def setUp(self):
-		#點擊允許
-		click_allow(self)
-		#檢查app是否安裝,若沒安裝則會自行安裝(Parameter)
-		check_app_installed(self)
 		#開啟app的參數
 		self.driver = webdriver.Remote(Remote_url, desired_caps)
 		#設置隱性等待10秒
@@ -24,7 +20,7 @@ class WebDriverTests(unittest.TestCase):
 		print('==========test_2_2_opening_page_android_開屏頁檢查==========')
 		#開屏頁檢查
 		try:
-			self.driver.find_element_by_id('com.szoc.zb.cs:id/welacome_layout')
+			self.driver.find_element_by_id('com.szoc.zb.cs:id/image_top')
 			print('正確!開屏頁正常顯示')
 		except NoSuchElementException:
 			print('錯誤!開屏頁沒有顯示')

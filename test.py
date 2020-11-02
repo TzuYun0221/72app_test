@@ -13,6 +13,9 @@ from selenium.common.exceptions import NoSuchElementException
 cov = coverage.coverage()
 cov.start()
 
+#檢查app是否安裝,若沒安裝則會自行安裝(Parameter)
+check_app_installed()
+
 
 #讀取testcase路徑
 if (desired_caps['platformName'] == 'Android'):
@@ -24,7 +27,7 @@ def creat_suite():
     uit = unittest.TestSuite()
     #discover = unittest.defaultTestLoader.discover(testcase_path, pattern="test_*.py")
     #discover = unittest.defaultTestLoader.discover(specific_testcase_path, pattern="test_*.py")
-    discover = unittest.defaultTestLoader.discover(testcase_path, pattern="test_[2-3]*.py")
+    discover = unittest.defaultTestLoader.discover(testcase_path, pattern="test_*.py")
 
     for test_suite in discover:
         print(test_suite)

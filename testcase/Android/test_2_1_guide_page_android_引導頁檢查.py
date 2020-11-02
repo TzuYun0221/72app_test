@@ -4,8 +4,6 @@ from Parameter import *
 
 class WebDriverTests(unittest.TestCase):
 	def setUp(self):
-		#檢查app是否安裝,若沒安裝則會自行安裝(Parameter)
-		check_app_installed(self)
 		#開啟app的參數
 		self.driver = webdriver.Remote(Remote_url, desired_caps_reset)
 		#設置隱性等待10秒
@@ -15,6 +13,8 @@ class WebDriverTests(unittest.TestCase):
 	def tearDown(self):
 		#關閉app
 		self.driver.quit()
+		#點允許(不在app內時)(Parameter)
+		click_allow_outside_app()
 		print('-- tear down finished -- ')
 
 

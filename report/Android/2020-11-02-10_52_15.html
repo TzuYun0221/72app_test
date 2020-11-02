@@ -200,9 +200,9 @@ function showOutput(id, name) {
 --></script>
 <div class='heading'>
 <h1>72app</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-10-30 17:51:07</p>
-<p class='attribute'><strong>Duration:</strong> 0:04:33.700655</p>
-<p class='attribute'><strong>Status:</strong> Pass 1 Error 4</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-11-02 10:52:15</p>
+<p class='attribute'><strong>Duration:</strong> 0:04:26.143222</p>
+<p class='attribute'><strong>Status:</strong> Pass 3 Failure 1 Error 1</p>
 
 <p class='description'>  執行環境:Windows 裝置:Mi 9t 版本:Android 10</p>
 </div>
@@ -278,21 +278,21 @@ pt1.1: APP已經安裝
     </td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='failClass'>
     <td>test_2_2_opening_page_android_開屏頁檢查.WebDriverTests</td>
     <td>1</td>
     <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
 </tr>
 
 <tr id='ft2.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_2_2_opening_page_android_開屏頁檢查</div></td>
+    <td class='failCase'><div class='testcase'>test_2_2_opening_page_android_開屏頁檢查</div></td>
     <td colspan='5' align='center'>
     <!--css div popup start-->
     <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft2.1')" >
-        error</a>
+        fail</a>
     <div id='div_ft2.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
         <a onfocus='this.blur();' onclick="document.getElementById('div_ft2.1').style.display = 'none' " >
@@ -300,12 +300,24 @@ pt1.1: APP已經安裝
         </div>
         <pre>
         
-ft2.1: Traceback (most recent call last):
-  File "C:\Users\Angela\72apptest\testcase\Android\test_2_2_opening_page_android_開屏頁檢查.py", line 8, in setUp
-    click_allow(self)
-  File "C:\Users\Angela\72apptest\Parameter.py", line 70, in click_allow
-    self.driver.find_element_by_xpath("//*[@text='允許']").click()
-AttributeError: 'WebDriverTests' object has no attribute 'driver'
+ft2.1: APP已經安裝
+點擊允許
+ -- set up finished -- 
+==========test_2_2_opening_page_android_開屏頁檢查==========
+錯誤!開屏頁沒有顯示
+-- tear down finished -- 
+Traceback (most recent call last):
+  File "C:\Users\Angela\72apptest\testcase\Android\test_2_2_opening_page_android_開屏頁檢查.py", line 27, in test_2_2_opening_page_android_開屏頁檢查
+    self.driver.find_element_by_id('com.szoc.zb.cs:id/welacome_layout')
+selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Angela\72apptest\testcase\Android\test_2_2_opening_page_android_開屏頁檢查.py", line 31, in test_2_2_opening_page_android_開屏頁檢查
+    raise AssertionError('錯誤!開屏頁沒有顯示')
+AssertionError: 錯誤!開屏頁沒有顯示
 
 
         </pre>
@@ -365,49 +377,41 @@ selenium.common.exceptions.NoSuchElementException: Message: An element could not
     </td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='passClass'>
     <td>test_2_4_about_us_關於創富.WebDriverTests</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
 </tr>
 
-<tr id='ft4.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_2_4_about_us_關於創富</div></td>
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_2_4_about_us_關於創富</div></td>
     <td colspan='5' align='center'>
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft4.1')" >
-        error</a>
-    <div id='div_ft4.1' class="popup_window">
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
+        pass</a>
+    <div id='div_pt4.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft4.1').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-ft4.1: APP已經安裝
+pt4.1: APP已經安裝
  -- set up finished -- 
 ==========test_2_4_about_us_關於創富==========
+正確!"关于神龙科技"tab正常顯示
+正確!"安全保障"tab正常顯示
+正確!"安全保障"顯示: 安全保障让您的投资安全无忧
+正確!"运营数据"tab正常顯示
+正確!"运营数据"顯示: 安全运营
+正確!"荣誉奖项"tab正常顯示
+正確!"荣誉奖项"顯示: 荣誉奖项屡获殊荣 我们一同见证
+正確!"联系我们"tab正常顯示
+正確!"联系我们"顯示: 客服邮箱 cs@cf139.com
 -- tear down finished -- 
-Traceback (most recent call last):
-  File "C:\Users\Angela\72apptest\testcase\Android\test_2_4_about_us_關於創富.py", line 26, in test_2_4_about_us_關於創富
-    self.driver.find_element_by_xpath("//*[@text='我的']").click()
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
-    return self.find_element(by=By.XPATH, value=xpath)
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\webdriver.py", line 281, in find_element
-    'value': value})['value']
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\errorhandler.py", line 31, in check_response
-    raise wde
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\errorhandler.py", line 26, in check_response
-    super().check_response(response)
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.
-
 
 
         </pre>
@@ -416,49 +420,33 @@ selenium.common.exceptions.NoSuchElementException: Message: An element could not
     </td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='passClass'>
     <td>test_3_1_HomePage_android_首頁頂部廣告跳轉.WebDriverTests</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
 </tr>
 
-<tr id='ft5.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_3_1_HomePage_android_首頁頂部廣告跳轉</div></td>
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_3_1_HomePage_android_首頁頂部廣告跳轉</div></td>
     <td colspan='5' align='center'>
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft5.1')" >
-        error</a>
-    <div id='div_ft5.1' class="popup_window">
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+        pass</a>
+    <div id='div_pt5.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft5.1').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-ft5.1: APP已經安裝
+pt5.1: APP已經安裝
  -- set up finished -- 
 ==========test_3_1_HomePage_android_首頁頂部廣告跳轉==========
+正確!首頁頂部廣告跳轉至 sss
 -- tear down finished -- 
-Traceback (most recent call last):
-  File "C:\Users\Angela\72apptest\testcase\Android\test_3_1_HomePage_android_首頁頂部廣告跳轉.py", line 26, in test_3_1_HomePage_android_首頁頂部廣告跳轉
-    self.driver.find_element_by_id('com.szoc.zb.cs:id/banner_image_click').click()
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 360, in find_element_by_id
-    return self.find_element(by=By.ID, value=id_)
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\webdriver.py", line 281, in find_element
-    'value': value})['value']
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\errorhandler.py", line 31, in check_response
-    raise wde
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\errorhandler.py", line 26, in check_response
-    super().check_response(response)
-  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.
-
 
 
         </pre>
@@ -470,9 +458,9 @@ selenium.common.exceptions.NoSuchElementException: Message: An element could not
 <tr id='total_row'>
     <td>Total</td>
     <td>5</td>
-    <td class="text text-success">1</td>
-    <td class="text text-danger">0</td>
-    <td class="text text-warning">4</td>
+    <td class="text text-success">3</td>
+    <td class="text text-danger">1</td>
+    <td class="text text-warning">1</td>
     <td>&nbsp;</td>
 </tr>
 </table>
@@ -483,7 +471,7 @@ selenium.common.exceptions.NoSuchElementException: Message: An element could not
 var data = [
 	{   
 	    name: 'error',
-		value: 4,
+		value: 1,
 		color: "#D35400",
 		label: "Error",
 		labelColor: 'white',
@@ -491,7 +479,7 @@ var data = [
 	},
 	{
 	    name: 'fail',
-		value : 0,
+		value : 1,
 		color : "#D4AC0D",
 		label: "Fail",
 		labelColor: 'white',
@@ -499,7 +487,7 @@ var data = [
 	},
 	{
 	    name : 'pass',
-		value : 1,
+		value : 3,
 		color : "#28B463",
 		label : "Pass",
 		labelColor: 'white',
