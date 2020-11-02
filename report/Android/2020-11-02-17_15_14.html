@@ -200,9 +200,9 @@ function showOutput(id, name) {
 --></script>
 <div class='heading'>
 <h1>72app</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-11-02 16:50:03</p>
-<p class='attribute'><strong>Duration:</strong> 0:04:44.361265</p>
-<p class='attribute'><strong>Status:</strong> Pass 7</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-11-02 17:15:15</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:36.870272</p>
+<p class='attribute'><strong>Status:</strong> Failure 1</p>
 
 <p class='description'>  執行環境:Windows 裝置:Mi 9t 版本:Android 10</p>
 </div>
@@ -242,248 +242,44 @@ function showOutput(id, name) {
     <td>View</td>
 </tr>
 
-<tr class='passClass'>
-    <td>test_1_1_install_android_安裝.WebDriverTests</td>
-    <td>1</td>
+<tr class='failClass'>
+    <td>test_3_2_HomePage_android_首頁消息中心與我頁面消息中心.WebDriverTests</td>
     <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
 </tr>
 
-<tr id='pt1.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_1_1_install_android_安裝</div></td>
+<tr id='ft1.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_3_2_HomePage_android_首頁消息中心與我頁面消息中心</div></td>
     <td colspan='5' align='center'>
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
-        pass</a>
-    <div id='div_pt1.1' class="popup_window">
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
+        fail</a>
+    <div id='div_ft1.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-pt1.1:  -- set up finished -- 
-==========test_1_1_install_android_安裝==========
-正確!安裝正常完成，無異常
+ft1.1:  -- set up finished -- 
+==========test_3_2_HomePage_android_首頁消息中心&amp;我頁面消息中心==========
+錯誤!"消息中心"沒有顯示
 -- tear down finished -- 
+Traceback (most recent call last):
+  File "C:\Users\Angela\72apptest\testcase\Android\test_3_2_HomePage_android_首頁消息中心與我頁面消息中心.py", line 31, in test_3_2_HomePage_android_首頁消息中心與我頁面消息中心
+    self.driver.find_element_by_xpath("//*[@text='"+title+"']").click()
+selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.
 
 
-        </pre>
-    </div>
-    <!--css div popup end-->
-    </td>
-</tr>
+During handling of the above exception, another exception occurred:
 
-<tr class='passClass'>
-    <td>test_1_3_uninstall_android_卸載.WebDriverTests</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
-</tr>
-
-<tr id='pt2.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_1_3_uninstall_android_卸載</div></td>
-    <td colspan='5' align='center'>
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
-        pass</a>
-    <div id='div_pt2.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt2.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-pt2.1:  -- set up finished -- 
-==========test_1_3_uninstall_android_卸載==========
-正確!卸載正常完成，無異常
-APP安裝完畢
--- tear down finished -- 
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-    </td>
-</tr>
-
-<tr class='passClass'>
-    <td>test_2_1_guide_page_android_引導頁檢查.WebDriverTests</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
-</tr>
-
-<tr id='pt3.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_2_1_guide_page_android_引導頁檢查</div></td>
-    <td colspan='5' align='center'>
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
-        pass</a>
-    <div id='div_pt3.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-pt3.1:  -- set up finished -- 
-==========test_2_1_guide_page_android_引導頁檢查==========
-正確!立即体验按鈕正確顯示
-正確!引導頁運作正常
-點擊允許
--- tear down finished -- 
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-    </td>
-</tr>
-
-<tr class='passClass'>
-    <td>test_2_2_opening_page_android_開屏頁檢查.WebDriverTests</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
-</tr>
-
-<tr id='pt4.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_2_2_opening_page_android_開屏頁檢查</div></td>
-    <td colspan='5' align='center'>
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
-        pass</a>
-    <div id='div_pt4.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-pt4.1:  -- set up finished -- 
-==========test_2_2_opening_page_android_開屏頁檢查==========
-正確!開屏頁正常顯示
--- tear down finished -- 
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-    </td>
-</tr>
-
-<tr class='passClass'>
-    <td>test_2_3_app_name_android_應用名稱與版本號檢查.WebDriverTests</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
-</tr>
-
-<tr id='pt5.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_2_3_app_name_android_應用名稱與版本號檢查</div></td>
-    <td colspan='5' align='center'>
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
-        pass</a>
-    <div id='div_pt5.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-pt5.1:  -- set up finished -- 
-==========test_2_3_app_name_android_應用名稱與版本號檢查==========
-正確!應用名稱顯示: ISTONE
-正確!版本號顯示: V_1.8.3
--- tear down finished -- 
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-    </td>
-</tr>
-
-<tr class='passClass'>
-    <td>test_2_4_about_us_關於創富.WebDriverTests</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c6',1)">Detail</a></td>
-</tr>
-
-<tr id='pt6.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_2_4_about_us_關於創富</div></td>
-    <td colspan='5' align='center'>
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt6.1')" >
-        pass</a>
-    <div id='div_pt6.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt6.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-pt6.1:  -- set up finished -- 
-==========test_2_4_about_us_關於創富==========
-正確!"关于神龙科技"tab正常顯示
-正確!"安全保障"tab正常顯示
-正確!"安全保障"顯示: 安全保障让您的投资安全无忧
-正確!"运营数据"tab正常顯示
-正確!"运营数据"顯示: 安全运营
-正確!"荣誉奖项"tab正常顯示
-正確!"荣誉奖项"顯示: 荣誉奖项屡获殊荣 我们一同见证
-正確!"联系我们"tab正常顯示
-正確!"联系我们"顯示: 客服邮箱 cs@cf139.com
--- tear down finished -- 
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-    </td>
-</tr>
-
-<tr class='passClass'>
-    <td>test_3_1_HomePage_android_首頁頂部廣告跳轉.WebDriverTests</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c7',1)">Detail</a></td>
-</tr>
-
-<tr id='pt7.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_3_1_HomePage_android_首頁頂部廣告跳轉</div></td>
-    <td colspan='5' align='center'>
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt7.1')" >
-        pass</a>
-    <div id='div_pt7.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt7.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-pt7.1:  -- set up finished -- 
-==========test_3_1_HomePage_android_首頁頂部廣告跳轉==========
-正確!首頁頂部廣告跳轉至 sss
--- tear down finished -- 
+Traceback (most recent call last):
+  File "C:\Users\Angela\72apptest\testcase\Android\test_3_2_HomePage_android_首頁消息中心與我頁面消息中心.py", line 35, in test_3_2_HomePage_android_首頁消息中心與我頁面消息中心
+    raise AssertionError('錯誤!"'+title+'"沒有顯示')
+AssertionError: 錯誤!"消息中心"沒有顯示
 
 
         </pre>
@@ -494,9 +290,9 @@ pt7.1:  -- set up finished --
 
 <tr id='total_row'>
     <td>Total</td>
-    <td>7</td>
-    <td class="text text-success">7</td>
-    <td class="text text-danger">0</td>
+    <td>1</td>
+    <td class="text text-success">0</td>
+    <td class="text text-danger">1</td>
     <td class="text text-warning">0</td>
     <td>&nbsp;</td>
 </tr>
@@ -516,7 +312,7 @@ var data = [
 	},
 	{
 	    name: 'fail',
-		value : 0,
+		value : 1,
 		color : "#D4AC0D",
 		label: "Fail",
 		labelColor: 'white',
@@ -524,7 +320,7 @@ var data = [
 	},
 	{
 	    name : 'pass',
-		value : 7,
+		value : 0,
 		color : "#28B463",
 		label : "Pass",
 		labelColor: 'white',
