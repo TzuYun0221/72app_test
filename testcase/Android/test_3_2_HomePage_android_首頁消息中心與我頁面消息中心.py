@@ -21,8 +21,25 @@ class WebDriverTests(unittest.TestCase):
 	def test_3_2_HomePage_android_首頁消息中心與我頁面消息中心(self):
 		print('==========test_3_2_HomePage_android_首頁消息中心與我頁面消息中心==========')
 		#點擊首頁消息中心
-		self.driver.find_element_by_id('com.szoc.zb.cs:id/message_btn2').click()
-		#消息中心標題com.szoc.zb.cs:id/app_title
+		click_home_message_center(self)
+		print('首頁消息中心')
+		#消息中心 重要公告 系统维护 交易安排 行情提醒
+		check_titles = ['消息中心','重要公告','系统维护','交易安排','行情提醒']
+
+		for title in check_titles:
+			try:
+				self.driver.find_element_by_xpath("//*[@text='"+title+"']")
+				print('正確!"'+title+'"正常顯示')
+			except NoSuchElementException:
+				print('錯誤!"'+title+'"沒有顯示')
+				raise AssertionError('錯誤!"'+title+'"沒有顯示')
+		#點擊消息中心的返回
+		click_message_center_return(self)
+		#點擊我的頁面
+		press_my_button(self)
+		#點擊我頁面消息中心
+		click_mypage_message_center(self)
+		print('我頁面消息中心')
 		#消息中心 重要公告 系统维护 交易安排 行情提醒
 		check_titles = ['消息中心','重要公告','系统维护','交易安排','行情提醒']
 

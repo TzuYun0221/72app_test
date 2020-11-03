@@ -89,10 +89,31 @@ def click_allow_outside_app():
 	driver_allow.quit()
 #點擊我的頁面
 def press_my_button(self):
+	time.sleep(2)
 	x=self.driver.get_window_size()['width']
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x*0.9, y=y-1, count=1).perform()
+#點擊首頁消息中心
+def click_home_message_center(self):
+	time.sleep(2)
+	x=self.driver.get_window_size()['width']
+	y=self.driver.get_window_size()['height']
+	#點擊座標
+	TouchAction(self.driver).tap(element=None, x=x*0.81 ,y=y/19, count=1).perform()
+	#透過id
+	#self.driver.find_element_by_id('com.szoc.zb.cs:id/message_btn2').click()
+#點擊首頁客服中心
+def click_home_customer_service(self):
+
+
+#點擊我頁面消息中心
+def click_mypage_message_center(self):
+	self.driver.find_element_by_id("com.szoc.zb.cs:id/iv_user_center_message").click()
+#點擊消息中心的返回
+def click_message_center_return(self):
+	el2 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[1]/android.widget.ImageView")
+	el2.click()
 
 #點擊首頁輪播廣告
 def click_home_banner(self):

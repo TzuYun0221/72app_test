@@ -4,16 +4,16 @@ from Parameter import *
 
 class WebDriverTests(unittest.TestCase):
 	def setUp(self):
-		#開啟app的參數
+		#開啟driver的參數
 		self.driver = webdriver.Remote(Remote_url, desired_install)
 		#設置隱性等待10秒
 		self.driver.implicitly_wait(10)
 		print(" -- set up finished -- ")
 
 	def tearDown(self):
-		#檢查app是否安裝,若沒安裝則會自行安裝(Parameter)
-		check_app_installed()
-		#關閉app
+		#將卸載的apk還原
+		self.driver.install_app(apk_url)
+		#關閉driver
 		self.driver.quit()
 		print('-- tear down finished -- ')
 
