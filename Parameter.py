@@ -12,7 +12,7 @@ random = Random()
 OS = 'Windows'
 #指定apk路徑
 apk_url = 'C:/Users/Angela/72apptest/release-cf-1.8.2-release_182_jiagu_sign_zp.apk'
-#apk_url = 'C:/Users/Angela/72apptest/release-cf-1.8.2-release_182_jiagu_sign_zp.apk'
+#apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
 #應用名稱&版本號(用於關於我們檢查)
 #PRD
 app_name_version_expect = '创富CFD V_1.8.2'
@@ -121,7 +121,12 @@ def click_home_message_center(self):
 #點擊首頁客服中心
 def click_home_customer_service(self):
 	#透過id
-	self.driver.find_element_by_id(package_name+':id/contact_btn2').click()
+	#self.driver.find_element_by_id(package_name+':id/contact_btn2').click()
+	time.sleep(2)
+	x=self.driver.get_window_size()['width']
+	y=self.driver.get_window_size()['height']
+	#點擊座標
+	TouchAction(self.driver).tap(element=None, x=x*0.93 ,y=y/19, count=1).perform()
 
 #點擊我頁面消息中心
 def click_mypage_message_center(self):

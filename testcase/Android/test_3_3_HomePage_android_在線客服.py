@@ -30,17 +30,13 @@ class WebDriverTests(unittest.TestCase):
 		else:
 			print('錯誤!客服中心標題顯示:',title)
 			raise AssertionError('錯誤!客服中心標題顯示:',title)
-		#檢查消息輸入欄(透過元素id檢查該元素有沒有跑出來)
-		#'enter' 'inputbox' 'menubtn'
-		id_check_list = ['enter','inputbox','menubtn']
-		for current_id in id_check_list:
-			try:
-				self.driver.find_element_by_id(current_id)
-			except NoSuchElementException:
-				print('錯誤!消息輸入欄沒有顯示')
-				raise AssertionError('錯誤!消息輸入欄沒有顯示')
-
-		print('正確!消息輸入欄顯示正確')
+		#檢查消息輸入欄"发送"按鈕有無顯示
+		try:
+			self.driver.find_element_by_xpath("//*[@text='发送']")
+			print('正確!消息發送按鈕顯示顯示"发送"')
+		except NoSuchElementException:
+			print('錯誤!消息發送按鈕沒有顯示"发送"')
+			raise AssertionError('錯誤!消息發送按鈕沒有顯示"发送"')
 		
 
 
