@@ -25,9 +25,9 @@ class WebDriverTests(unittest.TestCase):
 
 		try:
 			#頂部叉叉
-			self.driver.find_element_by_id('com.szoc.zb.cs:id/title_left_secondary_icon')
+			self.driver.find_element_by_id(package_name+':id/title_left_secondary_icon')
 			#首頁標題
-			title = self.driver.find_element_by_id('com.szoc.zb.cs:id/app_title').text
+			title = self.driver.find_element_by_id(package_name+':id/app_title').text
 			print('正確!首頁頂部廣告跳轉至',title)
 		except NoSuchElementException:
 			print('錯誤!首頁頂部廣告無法跳轉')

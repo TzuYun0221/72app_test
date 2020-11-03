@@ -27,7 +27,7 @@ class WebDriverTests(unittest.TestCase):
 				continue
 		#檢查app是否安裝(開戶引導頁是否正常顯示)
 		try:
-			self.driver.find_element_by_id('com.szoc.zb.cs:id/imageview')
+			self.driver.find_element_by_id(package_name+':id/imageview')
 			print('正確!安裝正常完成，無異常')
 		except NoSuchElementException:
 			print('錯誤!安裝失敗,用戶引導頁沒有顯示')

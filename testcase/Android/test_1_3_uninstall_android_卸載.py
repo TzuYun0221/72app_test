@@ -21,10 +21,10 @@ class WebDriverTests(unittest.TestCase):
 	def test_1_3_uninstall_android_卸載(self):
 		print('==========test_1_3_uninstall_android_卸載==========')
 		#執行卸載app
-		self.driver.remove_app(desired_caps['appPackage'])
+		self.driver.remove_app(package_name)
 
 		#檢查app是否卸載
-		if(self.driver.is_app_installed(desired_caps['appPackage'])==False):
+		if(self.driver.is_app_installed(package_name)==False):
 			print('正確!卸載正常完成，無異常')
 		else:
 			print('錯誤!卸載失敗')

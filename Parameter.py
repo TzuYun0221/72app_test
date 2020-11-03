@@ -7,15 +7,30 @@ from random import Random
 import unittest, time, re, os
 import json
 random = Random()
+#=========UAT/PRD切換測試需更改之參數========
 # 指定OS
 OS = 'Windows'
 #指定apk路徑
-apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
+apk_url = 'C:/Users/Angela/72apptest/release-cf-1.8.2-release_182_jiagu_sign_zp.apk'
+#apk_url = 'C:/Users/Angela/72apptest/release-cf-1.8.2-release_182_jiagu_sign_zp.apk'
 #應用名稱&版本號(用於關於我們檢查)
-app_name_expect = 'ISTONE'
-app_version_expect = 'V_1.8.3'
+#PRD
+app_name_version_expect = '创富CFD V_1.8.2'
+#UAT
+#app_name_version_expect = 'ISTONE V_1.8.3'
+#包名(PRD/UAT)
+#UAT
+#package_name = 'com.szoc.zb.cs'
+#PRD
+package_name = 'com.gwtsz.gts2.cf'
 
-check_status_json = 'check_status.json'
+#關於創富(用於關於創富檢查)
+#UAT
+#about_us_expect = '关于神龙科技'
+#PRD
+about_us_expect = '关于创富'
+#=========UAT/PRD切換測試需更改之參數========
+
 #指定舊版本apk路徑(覆蓋安裝測試)
 #old_apk_url = 'C:/Users/Angela/72apptest/20200812-uat-cs-1.8.2-release.apk'
 #指定裝置、版本、安裝包
@@ -27,7 +42,7 @@ desired_caps = {
     'platformName':'Android',
     'platformVersion':'10',
     'deviceName':'Mi 9t',
-    'appPackage':'com.szoc.zb.cs',
+    'appPackage': package_name,
     'appActivity':'gw.com.android.ui.WelcomeActivity',
     'newCommandTimeout':6000,
     'noReset':True
@@ -64,7 +79,7 @@ def skip_ads(self):
 	time.sleep(7)
 	#1.跳過開屏廣告 2.關版本升級 3.關彈窗廣告
 	#沒有彈出版本升級或廣告就跳過不執行
-	element_list = ['com.szoc.zb.cs:id/tv_skip','com.szoc.zb.cs:id/btn_cancel','com.szoc.zb.cs:id/close_btn']
+	element_list = [package_name+':id/tv_skip',package_name+':id/btn_cancel',package_name+':id/close_btn']
 	for element in element_list:
 		try:
 			self.driver.find_element_by_id(element).click()
@@ -105,11 +120,12 @@ def click_home_message_center(self):
 	#self.driver.find_element_by_id('com.szoc.zb.cs:id/message_btn2').click()
 #點擊首頁客服中心
 def click_home_customer_service(self):
-
+	#透過id
+	self.driver.find_element_by_id(package_name+':id/contact_btn2').click()
 
 #點擊我頁面消息中心
 def click_mypage_message_center(self):
-	self.driver.find_element_by_id("com.szoc.zb.cs:id/iv_user_center_message").click()
+	self.driver.find_element_by_id(package_name+":id/iv_user_center_message").click()
 #點擊消息中心的返回
 def click_message_center_return(self):
 	el2 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[1]/android.widget.ImageView")
@@ -123,46 +139,6 @@ def click_home_banner(self):
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x/2 ,y=y/5, count=1).perform()
 
-
-'''#更新driver狀態(已開啟True/已關閉False)(修改json)
-def update_driver_status(status_bool):
-	# 檢查check_status.json是否存在
-    if os.path.isfile(check_status_json):
-        #存在時
-        #讀取check_status.json
-        with open(check_status_json, 'r', encoding='utf-8') as json_file:  
-            check_status_data = json.load(json_file)
-            #修改driver狀態
-            check_status_data['driver_status'] = status_bool
-        #再將driver狀態存入check_status.json
-        with open(check_status_json, 'w') as outfile:
-            json.dump(check_status_data, outfile,indent=2)
-    else:
-        #不存在時
-        #將driver狀態check_status.json
-        with open(check_status_json, 'w') as outfile:
-            json.dump({'driver_status':status_bool}, outfile,indent=2)
-#檢查driver狀態(已開啟True/已關閉False)(修改json)
-def check_driver_status(self):
-	# 檢查check_status.json是否存在
-	if os.path.isfile(check_status_json):
-		#存在時
-		#讀取check_status.json
-		with open(check_status_json, 'r', encoding='utf-8') as json_file:  
-			check_status_data = json.load(json_file)
-		#確認driver狀態
-		#driver關閉時則開啟driver
-		if(check_status_data['driver_status'] == False):
-			self.driver = webdriver.Remote(Remote_url, desired_caps_reset)
-			#設置隱性等待10秒
-			self.driver.implicitly_wait(10)
-			#跳過廣告(Parameter)
-			skip_ads(self)	        
-	else:
-		#不存在時
-		#將driver狀態check_status.json
-		with open(check_status_json, 'w') as outfile:
-			json.dump({'driver_status':False}, outfile,indent=2)'''
 
 		
 

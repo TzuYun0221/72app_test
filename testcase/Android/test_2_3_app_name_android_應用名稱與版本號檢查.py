@@ -25,23 +25,15 @@ class WebDriverTests(unittest.TestCase):
 		#self.driver.find_element_by_xpath("//*[@text='我的']").click()
 		press_my_button(self)
 		#設定
-		self.driver.find_element_by_id('com.szoc.zb.cs:id/iv_user_center_setting').click()
+		self.driver.find_element_by_id(package_name+':id/iv_user_center_setting').click()
 		#关于我们
 		self.driver.find_element_by_xpath("//*[@text='关于我们']").click()
-		#應用名稱檢查(取前6字)
-		app_name = self.driver.find_element_by_id('com.szoc.zb.cs:id/item_title').text[:6]
-		#應用版本檢查(取後7字)
-		app_version = self.driver.find_element_by_id('com.szoc.zb.cs:id/item_title').text[7:]
-		if(app_name == app_name_expect):
-			print('正確!應用名稱顯示:',app_name)
+		#應用名稱版本檢查(取後7字)
+		app_name_version = self.driver.find_element_by_id(package_name+':id/item_title').text
+		if(app_name_version == app_name_version_expect):
+			print('正確!應用名稱與版本號顯示:',app_name_version)
 		else:
-			print('錯誤!應用名稱顯示:',app_name)
-			raise AssertionError('錯誤!應用名稱顯示:',app_name)
-		
-		if(app_version == app_version_expect):
-			print('正確!版本號顯示:',app_version)
-		else:
-			print('錯誤!版本號顯示:',app_version)
-			raise AssertionError('錯誤!版本號顯示:',app_version)
+			print('錯誤!應用名稱與版本號顯示:',app_name_version)
+			raise AssertionError('錯誤!應用名稱與版本號顯示:',app_name_version)
 			
 		

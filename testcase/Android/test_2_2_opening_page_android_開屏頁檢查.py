@@ -20,7 +20,7 @@ class WebDriverTests(unittest.TestCase):
 		print('==========test_2_2_opening_page_android_開屏頁檢查==========')
 		#開屏頁檢查
 		try:
-			self.driver.find_element_by_id('com.szoc.zb.cs:id/image_top')
+			self.driver.find_element_by_id(package_name+':id/image_top')
 			print('正確!開屏頁正常顯示')
 		except NoSuchElementException:
 			print('錯誤!開屏頁沒有顯示')

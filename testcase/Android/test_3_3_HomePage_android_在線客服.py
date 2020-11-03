@@ -14,7 +14,7 @@ class WebDriverTests(unittest.TestCase):
 
 	def tearDown(self):
 		#關閉app
-		#self.driver.quit()
+		self.driver.quit()
 		print('-- tear down finished -- ')
 
 
@@ -22,5 +22,25 @@ class WebDriverTests(unittest.TestCase):
 		print('==========test_3_3_HomePage_android_在線客服==========')
 		#點擊首頁客服中心
 		click_home_customer_service(self)
+		#檢查客服中心標題
+		title = self.driver.find_element_by_id(package_name+':id/app_title').text
+		title_expect = '客服'
+		if(title == title_expect):
+			print('正確!客服中心標題顯示:',title)
+		else:
+			print('錯誤!客服中心標題顯示:',title)
+			raise AssertionError('錯誤!客服中心標題顯示:',title)
+		#檢查消息輸入欄(透過元素id檢查該元素有沒有跑出來)
+		#'enter' 'inputbox' 'menubtn'
+		id_check_list = ['enter','inputbox','menubtn']
+		for current_id in id_check_list:
+			try:
+				self.driver.find_element_by_id(current_id)
+			except NoSuchElementException:
+				print('錯誤!消息輸入欄沒有顯示')
+				raise AssertionError('錯誤!消息輸入欄沒有顯示')
+
+		print('正確!消息輸入欄顯示正確')
+		
 
 

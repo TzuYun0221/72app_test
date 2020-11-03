@@ -36,7 +36,7 @@ class WebDriverTests(unittest.TestCase):
 		for i in range(3):
 			#檢查引導頁
 			try:
-				self.driver.find_element_by_id('com.szoc.zb.cs:id/imageview')
+				self.driver.find_element_by_id(package_name+':id/imageview')
 			except NoSuchElementException:
 				print('錯誤!引導頁未顯示')
 				raise AssertionError('錯誤!引導頁未顯示')
@@ -52,7 +52,7 @@ class WebDriverTests(unittest.TestCase):
 
 		#檢查按立即體驗後是否跳至小白老司機頁面
 		try:
-			self.driver.find_element_by_id('com.szoc.zb.cs:id/iv_tutorial_map')
+			self.driver.find_element_by_id(package_name+':id/iv_tutorial_map')
 			print('正確!引導頁運作正常')
 		except NoSuchElementException:
 			print('錯誤!引導頁運作異常')
