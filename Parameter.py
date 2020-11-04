@@ -10,26 +10,28 @@ random = Random()
 #=========UAT/PRD切換測試需更改之參數========
 # 指定OS
 OS = 'Windows'
-#指定apk路徑
-apk_url = 'C:/Users/Angela/72apptest/release-cf-1.8.2-release_182_jiagu_sign_zp.apk'
-#apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
-#應用名稱&版本號(用於關於我們檢查)
-#PRD
-app_name_version_expect = '创富CFD V_1.8.2'
 #UAT
-#app_name_version_expect = 'ISTONE V_1.8.3'
-#包名(PRD/UAT)
-#UAT
-#package_name = 'com.szoc.zb.cs'
+package_name = 'com.szoc.zb.cs'
 #PRD
-package_name = 'com.gwtsz.gts2.cf'
-
-#關於創富(用於關於創富檢查)
-#UAT
-#about_us_expect = '关于神龙科技'
-#PRD
-about_us_expect = '关于创富'
+#package_name = 'com.gwtsz.gts2.cf'
+#包為PRD
+if(package_name == 'com.gwtsz.gts2.cf'):
+	#指定apk路徑
+	apk_url = 'C:/Users/Angela/72apptest/release-cf-1.8.2-release_182_jiagu_sign_zp.apk'
+	#應用名稱&版本號(用於關於我們檢查)
+	app_name_version_expect = '创富CFD V_1.8.2'
+	#關於創富(用於關於創富檢查)
+	about_us_expect = '关于创富'
+#包為UAT
+else:
+	#指定apk路徑
+	apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
+	#應用名稱&版本號(用於關於我們檢查)
+	app_name_version_expect = 'ISTONE V_1.8.3'
+	#關於創富(用於關於創富檢查)
+	about_us_expect = '关于神龙科技'
 #=========UAT/PRD切換測試需更改之參數========
+
 
 #指定舊版本apk路徑(覆蓋安裝測試)
 #old_apk_url = 'C:/Users/Angela/72apptest/20200812-uat-cs-1.8.2-release.apk'
@@ -143,6 +145,23 @@ def click_home_banner(self):
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x/2 ,y=y/5, count=1).perform()
+#往下滑
+def scroll_down(self):
+	time.sleep(2)
+	x=self.driver.get_window_size()['width']
+	y=self.driver.get_window_size()['height']
+	x1=x/2
+	y1=y*0.8
+	y2=y*0.3
+	#TouchAction(self.driver).press(x=x1, y=y1).move_to(x=x1, y=y2).release().perform()
+	self.driver.swipe(x1,y1,x1,y2,1000)
+
+#懂你所需右滑
+#def clever_need_swipe_right(self):
+
+#懂你所需左滑
+#def clever_need_need_swipe_left(self):
+
 
 
 		

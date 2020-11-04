@@ -37,6 +37,3 @@ class WebDriverTests(unittest.TestCase):
 		except NoSuchElementException:
 			print('錯誤!消息發送按鈕沒有顯示"发送"')
 			raise AssertionError('錯誤!消息發送按鈕沒有顯示"发送"')
-		
-
-
