@@ -6,6 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 from random import Random
 import unittest, time, re, os
 import json
+import requests
 random = Random()
 #=========UAT/PRD切換測試需更改之參數========
 # 指定OS
@@ -145,6 +146,12 @@ def click_home_banner(self):
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x/2 ,y=y/5, count=1).perform()
+#點擊首頁登入/註冊
+def click_home_register_login(self):
+	#做標定位只適用螢幕大小 2340*1080
+	TouchAction(self.driver).tap(x=931, y=2149).perform()
+	#文字定位全部適用,但定位時間較久
+	#self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
 #往下滑
 def scroll_down(self):
 	time.sleep(2)
@@ -156,11 +163,67 @@ def scroll_down(self):
 	#TouchAction(self.driver).press(x=x1, y=y1).move_to(x=x1, y=y2).release().perform()
 	self.driver.swipe(x1,y1,x1,y2,1000)
 
-#懂你所需右滑
-#def clever_need_swipe_right(self):
-
 #懂你所需左滑
-#def clever_need_need_swipe_left(self):
+def clever_need_swipe_left(self):
+	time.sleep(2)
+	x=self.driver.get_window_size()['width']
+	y=self.driver.get_window_size()['height']
+	#懂你所需
+	coordinates = self.driver.find_element_by_id(package_name+':id/home_clever_need').location
+	y1 = coordinates['y'] + y/10
+	x1 = x*0.72
+	x2 = x*0.6
+	self.driver.swipe(x1,y1,x2,y1,1000)
+
+#懂你所需右滑
+def clever_need_swipe_right(self):
+	time.sleep(2)
+	x=self.driver.get_window_size()['width']
+	y=self.driver.get_window_size()['height']
+	#懂你所需
+	coordinates = self.driver.find_element_by_id(package_name+':id/home_clever_need').location
+	y1 = coordinates['y'] + y/10
+	x2 = x*3/4
+	x1 = x/4
+	self.driver.swipe(x1,y1,x2,y1,1000)
+#隨機產生電話
+def random_phone_number(self):
+	area_list = ['130', '131', '132', '133', '134', '135', '136', '137',
+	'138', '139', '150', '151', '152', '153', '154', '155', '156', '157', '158', '159','188','189']
+	numbers = '0123456789'
+	random_phone = random.choice(area_list)
+	for i in range(8):
+		random_phone+=numbers[random.randint(0,9)]
+	return random_phone
+#獲取驗證碼API
+def register_demo_account_api(self,random_phone):
+	request_url = "http://mis.will68.com/ValidateCodeLog/createValidateNo"
+
+	payload = random_phone
+	headers = {
+	  'Cookie': '_ga=GA1.1.280281216.1603264849; _ga_DR6HQD5SM3=GS1.1.1604370924.4.0.1604370929.0; JSESSIONID=6E3FAB6D7BD7F37DC94282001269EB03; lang_type=0; cf88_id="user:1:3dce2613-06a3-45b3-ad00-6ba6f75d79a3"',
+	  'Content-Type': 'text/plain'
+	}
+
+	response = requests.request("POST", request_url, headers=headers, data = payload)
+	data = response.json()
+	#回傳驗證碼
+	return data['data']
+
+#添加白名單API
+def White_List_API(self,random_phone):
+	request_url = "http://mis.will68.com/whitelists/edit"
+	payload = "{\"status\": 1, \"phone\": \""+random_phone+"\"}"
+	headers = {
+	  'Cookie': '_ga=GA1.1.280281216.1603264849; _ga_DR6HQD5SM3=GS1.1.1604370924.4.0.1604370929.0; lang_type=0; JSESSIONID=C3883C50852D325D183B1E41F2DC8EF3; cf88_id="user:1:e7b99c9d-3916-461a-8d2d-975f7eeb18d7"',
+	  'Content-Type': 'application/json'
+	}
+	response = requests.request("POST", request_url, headers=headers, data = payload)
+	data = response.json()
+	print('添加白名單結果為:',data['msg'])
+
+
+
 
 
 
