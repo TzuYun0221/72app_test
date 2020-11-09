@@ -27,6 +27,8 @@ class WebDriverTests(unittest.TestCase):
 		random_phone = random_phone_number(self)
 		#透過api將手機號碼驗証碼產生
 		verification_code = register_demo_account_api(self,random_phone)
+		#隨機產生密碼
+		random_password = generate_random_password(self)
 		#透過api將手機號碼加至白名單
 		White_List_API(self,random_phone)
 		#點擊首頁登入/註冊(Parameter)
@@ -53,7 +55,7 @@ class WebDriverTests(unittest.TestCase):
 		#自設密碼
 		el2 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[2]/android.widget.EditText")
 		el2.click()
-		el2.send_keys("abc123")
+		el2.send_keys(random_password)
 		time.sleep(2)
 		#手機驗證碼
 		el3 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.EditText")
@@ -78,7 +80,12 @@ class WebDriverTests(unittest.TestCase):
 		print('測試真實開戶補充資料...')
 		#隨機中文名(Parameter)
 		random_name = random_chinese_name(self)
-		random_id = random_user_id_card(self)
+		#隨機產生身分證API(Parameter)
+		random_id = user_id_card_api(self)
+		#隨機6~8碼密碼
+		#隨機選取級別
+		random_level = random.choice(['迷你','标准','铂金','巴菲特级'])
+		self.driver.find_element_by_xpath("//*[@text='"+random_level+"']").click()
 		#填真實姓名
 		el5 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[1]/android.widget.EditText")
 		el5.click()
@@ -97,4 +104,15 @@ class WebDriverTests(unittest.TestCase):
 		#完成開戶
 		el8 = self.driver.find_element_by_xpath('//android.view.View[@content-desc="完成开户"]/android.widget.TextView')
 		el8.click()
+
+		success_text_expect = random_phone + '真实账号注册成功'
+		try:
+			success_text_result = self.driver.find_element_by_xpath("//*[@text='"+success_text_expect+"']").text
+			print('正確!開戶成功後顯示:',success_text_result)
+		except NoSuchElementException:
+			print('錯誤!開戶成功後字段沒有顯示')
+			raise AssertionError('錯誤!開戶成功後字段沒有顯示')
+		
+		#確認立記體驗是否會自動登入,並存取帳戶資訊至csv
+		check_new_account_login(self,'真實',random_password)
 		

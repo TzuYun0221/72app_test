@@ -7,6 +7,7 @@ from random import Random
 import unittest, time, re, os
 import json
 import requests
+import csv
 random = Random()
 #=========UAT/PRD切換測試需更改之參數========
 # 指定OS
@@ -33,7 +34,7 @@ else:
 	about_us_expect = '关于神龙科技'
 #=========UAT/PRD切換測試需更改之參數========
 
-
+account_csv = '帳號列表.csv'
 #指定舊版本apk路徑(覆蓋安裝測試)
 #old_apk_url = 'C:/Users/Angela/72apptest/20200812-uat-cs-1.8.2-release.apk'
 #指定裝置、版本、安裝包
@@ -88,6 +89,20 @@ def skip_ads(self):
 			self.driver.find_element_by_id(element).click()
 		except NoSuchElementException:
 			continue
+
+#跳過廣告(不等開屏七秒)
+def skip_ads_no_wait(self):
+	#設置隱性等待2秒
+	self.driver.implicitly_wait(2)
+	#1.跳過開屏廣告 2.關版本升級 3.關彈窗廣告
+	#沒有彈出版本升級或廣告就跳過不執行
+	element_list = [package_name+':id/tv_skip',package_name+':id/btn_cancel',package_name+':id/close_btn']
+	for element in element_list:
+		try:
+			self.driver.find_element_by_id(element).click()
+		except NoSuchElementException:
+			continue
+
 #點允許(在app內時)
 def click_allow(self):
 	try:
@@ -112,6 +127,28 @@ def press_my_button(self):
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x*0.9, y=y-1, count=1).perform()
+#取得真實帳號資訊
+def get_account_information(self):
+	#點我頁面TAB(Parameter)
+	press_my_button(self)
+	#點我頁面登入頭像
+	self.driver.find_element_by_id(package_name+":id/iv_me_head_icon").click()
+	#取得帳號
+	account_num = self.driver.find_element_by_id(package_name+":id/dialog_content_text2").text
+	#取得帳號級別
+	account_lvl = self.driver.find_element_by_id(package_name+":id/dialog_content_text3").text
+	self.driver.find_element_by_xpath("//*[@text='知道了']").click()
+	return account_num,account_lvl
+#取得模擬帳號資訊
+def get_demo_account_information(self):
+	#點我頁面TAB(Parameter)
+	press_my_button(self)
+	#點我頁面登入頭像
+	self.driver.find_element_by_id(package_name+":id/iv_me_head_icon").click()
+	#取得帳號
+	account_num = self.driver.find_element_by_id(package_name+":id/dialog_content_text2").text
+	self.driver.find_element_by_xpath("//*[@text='知道了']").click()
+	return account_num
 #點擊首頁消息中心
 def click_home_message_center(self):
 	time.sleep(2)
@@ -186,6 +223,16 @@ def clever_need_swipe_right(self):
 	x2 = x*3/4
 	x1 = x/4
 	self.driver.swipe(x1,y1,x2,y1,1000)
+
+#隨機產生密碼
+def generate_random_password(self):
+	chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqstuvwxyz0123456789'
+	length = len(chars) - 1
+	random_password = ''
+	for i in range(random.randint(6,8)):
+		random_password+=chars[random.randint(0,length)]
+	return random_password
+
 #隨機產生電話
 def random_phone_number(self):
 	area_list = ['130', '131', '132', '133', '134', '135', '136', '137',
@@ -202,23 +249,27 @@ def random_chinese_name(self):
 	for i in range(2):
 		random_name += chr(random.randint(0x4e00, 0x9fbf))
 	return random_name
-
+#產生身分證API
 def user_id_card_api(self):
 	request_url = "https://www.googlespeed.cn/idcard/ajax_get_idcard"
 	years = str(random.randint(1940,2010))
 	month = str(random.randint(1,12))
+	days = str(random.randint(1,30))
 	if(len(month)==1):
 		month = '0'+month
 	if(len(years)==1):
 		years = '0'+years
-	payload = {'sex': '男',
+	if(len(days)==1):
+		days = '0'+days
+	payload = {'sex': random.choice(['男','女']),
 	'year': years,
-	'month': '02',
-	'day': '21'}
+	'month': month,
+	'day': days}
 
 	response = requests.request("POST", request_url, headers={}, data = payload)
 
 	data = response.json()
+	return data['id_list'][0]['id_card']
 
 
 #獲取驗證碼API
@@ -247,6 +298,60 @@ def White_List_API(self,random_phone):
 	response = requests.request("POST", request_url, headers=headers, data = payload)
 	data = response.json()
 	print('添加白名單結果為:',data['msg'])
+
+def check_new_account_login(self,account_type,password):
+	if(account_type=='真實'):
+		try:
+			#點立擊體驗
+			self.driver.find_element_by_xpath("//*[@text='立即体验']").click()
+			#跳過廣告(不等開屏七秒)
+			skip_ads_no_wait(self)
+			#抓取帳號資訊(Parameter)
+			account_num,account_lvl = get_account_information(self)
+			print('開戶成功!帳號為:'+account_num,'級別為:'+account_lvl)
+		except NoSuchElementException:
+			print('錯誤!開戶後無法正常進入登入後畫面')
+			raise AssertionError('錯誤!開戶後無法正常進入登入後畫面')
+
+		# 讀取預約表(方便寫入資料)
+		with open(account_csv, newline='',encoding="utf-8") as csvfile:
+			#讀取預約表內容並存入writed_csv
+			rows = csv.reader(csvfile)
+			writed_csv = list(rows)
+		#寫入(新增帳號資訊)
+		with open(account_csv, 'w', newline='',encoding="utf-8") as csvfile:
+			writer = csv.writer(csvfile)
+			#寫入[帳號,密碼,真實/模擬,帳戶等級]
+			account_information = [account_num,password,account_type,account_lvl]
+			writed_csv.append(account_information)
+			# 寫入CSV
+			writer.writerows(writed_csv)
+	else:
+		try:
+			#點立擊體驗
+			self.driver.find_element_by_xpath("//*[@text='立即体验']").click()
+			#跳過廣告(不等開屏七秒)
+			skip_ads_no_wait(self)
+			#抓取帳號資訊(Parameter)
+			account_num = get_demo_account_information(self)
+			print('開戶成功!帳號為:'+account_num)
+		except NoSuchElementException:
+			print('錯誤!開戶後無法正常進入登入後畫面')
+			raise AssertionError('錯誤!開戶後無法正常進入登入後畫面')
+
+		# 讀取預約表(方便寫入資料)
+		with open(account_csv, newline='',encoding="utf-8") as csvfile:
+			#讀取預約表內容並存入writed_csv
+			rows = csv.reader(csvfile)
+			writed_csv = list(rows)
+		#寫入(新增帳號資訊)
+		with open(account_csv, 'w', newline='',encoding="utf-8") as csvfile:
+			writer = csv.writer(csvfile)
+			#寫入[帳號,密碼,真實/模擬,帳戶等級]
+			account_information = [account_num,password,account_type,'']
+			writed_csv.append(account_information)
+			#寫入CSV
+			writer.writerows(writed_csv)
 
 
 

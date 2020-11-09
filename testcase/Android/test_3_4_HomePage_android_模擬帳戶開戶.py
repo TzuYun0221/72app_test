@@ -27,6 +27,8 @@ class WebDriverTests(unittest.TestCase):
 		random_phone = random_phone_number(self)
 		#透過api將手機號碼驗証碼產生
 		verification_code = register_demo_account_api(self,random_phone)
+		#隨機產生密碼
+		random_password = generate_random_password(self)
 		#點擊首頁登入/註冊(Parameter)
 		click_home_register_login(self)		
 		#點擊開戶
@@ -61,7 +63,7 @@ class WebDriverTests(unittest.TestCase):
 		#自設密碼
 		el5 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.EditText")
 		el5.click()
-		el5.send_keys("abc123")
+		el5.send_keys(random_password)
 		time.sleep(2)
 		#輸入驗證碼
 		el7 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[1]/android.view.View[2]/android.view.View[4]/android.widget.EditText")
@@ -78,3 +80,6 @@ class WebDriverTests(unittest.TestCase):
 		except NoSuchElementException:
 			print('錯誤!開戶成功後字段沒有顯示')
 			raise AssertionError('錯誤!開戶成功後字段沒有顯示')
+
+		#確認立記體驗是否會自動登入,並存取帳戶資訊至csv
+		check_new_account_login(self,'模擬',random_password)
