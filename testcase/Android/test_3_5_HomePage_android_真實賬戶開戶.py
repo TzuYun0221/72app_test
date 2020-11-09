@@ -14,7 +14,7 @@ class WebDriverTests(unittest.TestCase):
 
 	def tearDown(self):
 		#關閉app
-		#self.driver.quit()
+		self.driver.quit()
 		print('-- tear down finished -- ')
 
 

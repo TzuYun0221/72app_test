@@ -252,7 +252,7 @@ def random_chinese_name(self):
 #產生身分證API
 def user_id_card_api(self):
 	request_url = "https://www.googlespeed.cn/idcard/ajax_get_idcard"
-	years = str(random.randint(1940,2010))
+	years = str(random.randint(1940,2001))
 	month = str(random.randint(1,12))
 	days = str(random.randint(1,30))
 	if(len(month)==1):
