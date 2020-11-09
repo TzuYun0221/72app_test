@@ -46,10 +46,8 @@ class WebDriverTests(unittest.TestCase):
 				print('錯誤!'+check_text+'字段沒有顯示')
 				raise AssertionError('錯誤!'+check_text+'字段沒有顯示')
 		print('測試模擬開戶...')
-		#隨機中文名
-		random_name = '測試'
-		for i in range(2):
-			random_name += chr(random.randint(0x4e00, 0x9fbf))
+		#隨機中文名(Parameter)
+		random_name = random_chinese_name(self)
 		#輸入姓名
 		el3 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[1]/android.widget.EditText")
 		el3.click()

@@ -195,6 +195,32 @@ def random_phone_number(self):
 	for i in range(8):
 		random_phone+=numbers[random.randint(0,9)]
 	return random_phone
+#隨機產生中文名
+def random_chinese_name(self):
+	#隨機中文名
+	random_name = '測試'
+	for i in range(2):
+		random_name += chr(random.randint(0x4e00, 0x9fbf))
+	return random_name
+
+def user_id_card_api(self):
+	request_url = "https://www.googlespeed.cn/idcard/ajax_get_idcard"
+	years = str(random.randint(1940,2010))
+	month = str(random.randint(1,12))
+	if(len(month)==1):
+		month = '0'+month
+	if(len(years)==1):
+		years = '0'+years
+	payload = {'sex': '男',
+	'year': years,
+	'month': '02',
+	'day': '21'}
+
+	response = requests.request("POST", request_url, headers={}, data = payload)
+
+	data = response.json()
+
+
 #獲取驗證碼API
 def register_demo_account_api(self,random_phone):
 	request_url = "http://mis.will68.com/ValidateCodeLog/createValidateNo"
@@ -221,6 +247,8 @@ def White_List_API(self,random_phone):
 	response = requests.request("POST", request_url, headers=headers, data = payload)
 	data = response.json()
 	print('添加白名單結果為:',data['msg'])
+
+
 
 
 

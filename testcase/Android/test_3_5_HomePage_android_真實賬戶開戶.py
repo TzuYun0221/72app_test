@@ -28,7 +28,7 @@ class WebDriverTests(unittest.TestCase):
 		#透過api將手機號碼驗証碼產生
 		verification_code = register_demo_account_api(self,random_phone)
 		#透過api將手機號碼加至白名單
-		#White_List_API(self,random_phone)
+		White_List_API(self,random_phone)
 		#點擊首頁登入/註冊(Parameter)
 		click_home_register_login(self)		
 		#點擊開戶
@@ -45,26 +45,56 @@ class WebDriverTests(unittest.TestCase):
 				print('錯誤!'+check_text+'字段沒有顯示')
 				raise AssertionError('錯誤!'+check_text+'字段沒有顯示')
 		print('測試真實開戶...')
-		#隨機中文名
-		random_name = '測試'
-		for i in range(2):
-			random_name += chr(random.randint(0x4e00, 0x9fbf))
 		#輸入手機
-		el1 = driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[1]/android.widget.EditText")
+		el1 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[1]/android.widget.EditText")
 		el1.click()
 		el1.send_keys(random_phone)
 		time.sleep(2)
 		#自設密碼
-		el2 = driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[2]/android.widget.EditText")
+		el2 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[2]/android.widget.EditText")
 		el2.click()
 		el2.send_keys("abc123")
 		time.sleep(2)
 		#手機驗證碼
-		el3 = driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[4]/android.widget.EditText")
+		el3 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.EditText")
 		el3.click()
 		el3.send_keys(verification_code)
 		time.sleep(2)
 		#提交資料
-		el4 = driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[4]")
+		el4 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[4]")
 		el4.click()
+
+		#檢查字段
+		print('檢查提交資料頁面是否正常')
+		check_text_list = ['补充资料','迷你','标准','铂金','巴菲特级','真实姓名','身份证号','常用邮箱','完成开户',
+		'* 为保障您的资金安全，真实交易前必须完善以下资料','用户协议']
+		for check_text in check_text_list:
+			try:
+				text_result = self.driver.find_element_by_xpath("//*[@text='"+check_text+"']").text
+				print('正確!'+check_text+'字段顯示:',text_result)
+			except NoSuchElementException:
+				print('錯誤!'+check_text+'字段沒有顯示')
+				raise AssertionError('錯誤!'+check_text+'字段沒有顯示')
+		print('測試真實開戶補充資料...')
+		#隨機中文名(Parameter)
+		random_name = random_chinese_name(self)
+		random_id = random_user_id_card(self)
+		#填真實姓名
+		el5 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[1]/android.widget.EditText")
+		el5.click()
+		el5.send_keys(random_name)
+		time.sleep(2)
+		#填身分證號
+		el6 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[3]/android.widget.EditText")
+		el6.click()
+		el6.send_keys(random_id)
+		time.sleep(2)
+		#填常用郵箱
+		el7 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[4]/android.widget.EditText")
+		el7.click()
+		el7.send_keys('yoyo.ho@itnsl.net')
+		time.sleep(2)
+		#完成開戶
+		el8 = self.driver.find_element_by_xpath('//android.view.View[@content-desc="完成开户"]/android.widget.TextView')
+		el8.click()
 		
