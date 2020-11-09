@@ -186,9 +186,9 @@ def click_home_banner(self):
 #點擊首頁登入/註冊
 def click_home_register_login(self):
 	#做標定位只適用螢幕大小 2340*1080
-	TouchAction(self.driver).tap(x=931, y=2149).perform()
+	#TouchAction(self.driver).tap(x=931, y=2149).perform()
 	#文字定位全部適用,但定位時間較久
-	#self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
+	self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
 #往下滑
 def scroll_down(self):
 	time.sleep(2)
@@ -231,6 +231,7 @@ def generate_random_password(self):
 	random_password = ''
 	for i in range(random.randint(6,8)):
 		random_password+=chars[random.randint(0,length)]
+	random_password+=str(random.randint(0,9))
 	return random_password
 
 #隨機產生電話
@@ -298,6 +299,16 @@ def White_List_API(self,random_phone):
 	response = requests.request("POST", request_url, headers=headers, data = payload)
 	data = response.json()
 	print('添加白名單結果為:',data['msg'])
+#登出
+def Logout(self):
+	press_my_button(self)
+	el1 = self.driver.find_element_by_id(package_name+":id/iv_user_center_setting")
+	el1.click()
+	el2 = self.driver.find_element_by_xpath("//*[@text='退出登录']")
+	el2.click()
+	el3 = self.driver.find_element_by_id(package_name+":id/action_btn_pos")
+	el3.click()
+
 
 def check_new_account_login(self,account_type,password):
 	if(account_type=='真實'):

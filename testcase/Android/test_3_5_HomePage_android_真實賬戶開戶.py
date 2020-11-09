@@ -13,6 +13,8 @@ class WebDriverTests(unittest.TestCase):
 		print(" -- set up finished -- ")
 
 	def tearDown(self):
+		#登出(Parameter)
+		Logout(self)
 		#關閉app
 		self.driver.quit()
 		print('-- tear down finished -- ')
