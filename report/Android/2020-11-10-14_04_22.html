@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>72app</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/Chart.js/0.2.0/Chart.min.js"></script>
+    <!-- <link href="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js" rel="stylesheet">   -->
+    
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         {  }
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    font-size: 12px;
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+	margin-left: 10px;
+}
+.heading .attribute {
+    font-size: 12px;
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+.heading .description {
+    font-size: 12px;
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+a.popup_link:hover {
+    color: red;
+}
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 12pt;
+    width: 500px;
+}
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+    margin-left: 10px;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+    margin-left: 10px;
+}
+#header_row {
+    font-weight: bold;T
+    color: #606060;
+    background-color: #f5f5f5;
+    border-top-width: 10px;
+    border-color: #d6e9c6;
+	font-size: 12px;
+}
+#result_table td {
+    font-size:10px
+    border: 1px solid #f5f5f5;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #d6e9c6; }
+.failClass  { background-color: #faebcc; }
+.errorClass { background-color: #ebccd1; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+/* -- chars ---------------------------------------------------------------------- */
+.testChars {margin-left: 150px; font-size:10px; text-align:center;}
+.btn-info1 {
+    color: #fff;
+    background-color: #28B463;
+    border-color: #d6e9c6;
+}
+.btn-info2 {
+    color: #fff;
+    background-color: #D4AC0D;
+    border-color: #faebcc;
+}
+.btn-info3 {
+    color: #fff;
+    background-color: #D35400;
+    border-color: #ebccd1;
+}
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+<div class='heading'>
+<h1>72app</h1>
+<p class='attribute'><strong>Start Time:</strong> 2020-11-10 14:04:22</p>
+<p class='attribute'><strong>Duration:</strong> 0:10:28.261934</p>
+<p class='attribute'><strong>Status:</strong> Pass 11 Failure 1 Error 1</p>
+
+<p class='description'>  執行環境:Windows 裝置:Mi 9t 版本:Android 10</p>
+</div>
+<div style="float:left; margin-left: 10px; font-size:12px">
+	<p> 開發者:YoYo Ho </p>
+	<p> 執行者:YoYo Ho </p>
+	<a class="btn btn-xs btn-info1">-Pass-</a><br>
+	<a class="btn btn-xs btn-info2">-Failed-</a><br>
+	<a class="btn btn-xs btn-info3">-Error-</a><br>
+</div>
+
+<div class="testChars" style="center">
+	<canvas id="myChart" width="250" height="250"></canvas>
+</div>
+
+
+<p id='show_detail_line' style="margin-left: 16px; font-size:12px">Show
+<a href='javascript:showCase(0)' class="btn btn-xs btn-primary">Summary</a>
+<a href='javascript:showCase(1)' class="btn btn-xs btn-danger">Failed</a>
+<a href='javascript:showCase(2)' class="btn btn-xs btn-info">All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="panel-title">
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_1_1_install_android_安裝.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_1_1_install_android_安裝</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        pass</a>
+    <div id='div_pt1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.1:  -- set up finished -- 
+==========test_1_1_install_android_安裝==========
+正確!安裝正常完成，無異常
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_1_3_uninstall_android_卸載.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_1_3_uninstall_android_卸載</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
+        pass</a>
+    <div id='div_pt2.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt2.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt2.1:  -- set up finished -- 
+==========test_1_3_uninstall_android_卸載==========
+正確!卸載正常完成，無異常
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_2_1_guide_page_android_引導頁檢查.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_2_1_guide_page_android_引導頁檢查</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
+        pass</a>
+    <div id='div_pt3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.1:  -- set up finished -- 
+==========test_2_1_guide_page_android_引導頁檢查==========
+正確!立即体验按鈕正確顯示
+正確!引導頁運作正常
+點擊允許
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_2_2_opening_page_android_開屏頁檢查.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_2_2_opening_page_android_開屏頁檢查</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
+        pass</a>
+    <div id='div_pt4.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt4.1:  -- set up finished -- 
+==========test_2_2_opening_page_android_開屏頁檢查==========
+正確!開屏頁正常顯示
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_2_3_app_name_android_應用名稱與版本號檢查.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_2_3_app_name_android_應用名稱與版本號檢查</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+        pass</a>
+    <div id='div_pt5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.1:  -- set up finished -- 
+==========test_2_3_app_name_android_應用名稱與版本號檢查==========
+正確!應用名稱與版本號顯示: ISTONE V_1.8.3
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_2_4_about_us_關於創富.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c6',1)">Detail</a></td>
+</tr>
+
+<tr id='pt6.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_2_4_about_us_關於創富</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt6.1')" >
+        pass</a>
+    <div id='div_pt6.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt6.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt6.1:  -- set up finished -- 
+==========test_2_4_about_us_關於創富==========
+正確!"关于神龙科技"tab正常顯示
+正確!"安全保障"tab正常顯示
+正確!"安全保障"顯示: 安全保障让您的投资安全无忧
+正確!"运营数据"tab正常顯示
+正確!"运营数据"顯示: 安全运营
+正確!"荣誉奖项"tab正常顯示
+正確!"荣誉奖项"顯示: 荣誉奖项屡获殊荣 我们一同见证
+正確!"联系我们"tab正常顯示
+正確!"联系我们"顯示: 客服邮箱
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_3_1_HomePage_android_首頁頂部廣告跳轉.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c7',1)">Detail</a></td>
+</tr>
+
+<tr id='pt7.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_3_1_HomePage_android_首頁頂部廣告跳轉</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt7.1')" >
+        pass</a>
+    <div id='div_pt7.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt7.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt7.1:  -- set up finished -- 
+==========test_3_1_HomePage_android_首頁頂部廣告跳轉==========
+正確!首頁頂部廣告跳轉至 抽奖活动测试
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_3_2_HomePage_android_首頁消息中心與我頁面消息中心.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c8',1)">Detail</a></td>
+</tr>
+
+<tr id='pt8.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_3_2_HomePage_android_首頁消息中心與我頁面消息中心</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt8.1')" >
+        pass</a>
+    <div id='div_pt8.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt8.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt8.1:  -- set up finished -- 
+==========test_3_2_HomePage_android_首頁消息中心與我頁面消息中心==========
+首頁消息中心
+正確!"消息中心"正常顯示
+正確!"重要公告"正常顯示
+正確!"系统维护"正常顯示
+正確!"交易安排"正常顯示
+正確!"行情提醒"正常顯示
+我頁面消息中心
+正確!"消息中心"正常顯示
+正確!"重要公告"正常顯示
+正確!"系统维护"正常顯示
+正確!"交易安排"正常顯示
+正確!"行情提醒"正常顯示
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='failClass'>
+    <td>test_3_3_HomePage_android_在線客服.WebDriverTests</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c9',1)">Detail</a></td>
+</tr>
+
+<tr id='ft9.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_3_3_HomePage_android_在線客服</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft9.1')" >
+        fail</a>
+    <div id='div_ft9.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft9.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft9.1:  -- set up finished -- 
+==========test_3_3_HomePage_android_在線客服==========
+正確!客服中心標題顯示: 客服
+錯誤!消息發送按鈕沒有顯示"发送"
+-- tear down finished -- 
+Traceback (most recent call last):
+  File "C:\Users\Angela\72apptest\testcase\Android\test_3_3_HomePage_android_在線客服.py", line 35, in test_3_3_HomePage_android_在線客服
+    self.driver.find_element_by_xpath("//*[@text='发送']")
+selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Angela\72apptest\testcase\Android\test_3_3_HomePage_android_在線客服.py", line 39, in test_3_3_HomePage_android_在線客服
+    raise AssertionError('錯誤!消息發送按鈕沒有顯示"发送"')
+AssertionError: 錯誤!消息發送按鈕沒有顯示"发送"
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_3_4_HomePage_android_模擬帳戶開戶.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c10',1)">Detail</a></td>
+</tr>
+
+<tr id='pt10.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_3_4_HomePage_android_模擬帳戶開戶</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt10.1')" >
+        pass</a>
+    <div id='div_pt10.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt10.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt10.1:  -- set up finished -- 
+==========test_3_4_HomePage_android_模擬帳戶開戶==========
+檢查模擬開戶頁面是否正常
+正確!模拟注册字段顯示: 模拟注册
+正確!真实姓名字段顯示: 真实姓名
+正確!手机号码字段顯示: 手机号码
+正確!自设密码字段顯示: 自设密码
+正確!手机验证码字段顯示: 手机验证码
+正確!获取验证码字段顯示: 获取验证码
+正確!完成开户字段顯示: 完成开户
+測試模擬開戶...
+正確!開戶成功後顯示: 15547020351模拟账号注册成功
+開戶成功!帳號為:11002193
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_3_5_HomePage_android_真實賬戶開戶.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c11',1)">Detail</a></td>
+</tr>
+
+<tr id='pt11.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_3_5_HomePage_android_真實賬戶開戶</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt11.1')" >
+        pass</a>
+    <div id='div_pt11.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt11.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt11.1:  -- set up finished -- 
+==========test_3_5_HomePage_android_真實賬戶開戶==========
+添加白名單結果為: 操作成功
+檢查真實開戶頁面是否正常
+正確!真实开户字段顯示: 真实开户
+正確!手机号码字段顯示: 手机号码
+正確!自设密码字段顯示: 自设密码
+正確!手机验证码字段顯示: 手机验证码
+正確!获取验证码字段顯示: 获取验证码
+正確!提交资料字段顯示: 提交资料
+測試真實開戶...
+檢查提交資料頁面是否正常
+正確!补充资料字段顯示: 补充资料
+正確!迷你字段顯示: 迷你
+正確!标准字段顯示: 标准
+正確!铂金字段顯示: 铂金
+正確!巴菲特级字段顯示: 巴菲特级
+正確!真实姓名字段顯示: 真实姓名
+正確!身份证号字段顯示: 身份证号
+正確!常用邮箱字段顯示: 常用邮箱
+正確!完成开户字段顯示: 完成开户
+正確!* 为保障您的资金安全，真实交易前必须完善以下资料字段顯示: * 为保障您的资金安全，真实交易前必须完善以下资料
+正確!用户协议字段顯示: 用户协议
+測試真實開戶補充資料...
+正確!開戶成功後顯示: 15307152960真实账号注册成功
+開戶成功!帳號為:81018426 級別為:巴菲特
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_3_7_HomePage_android_懂您所需.WebDriverTests</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c12',1)">Detail</a></td>
+</tr>
+
+<tr id='pt12.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_3_7_HomePage_android_懂您所需</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt12.1')" >
+        pass</a>
+    <div id='div_pt12.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt12.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt12.1:  -- set up finished -- 
+==========test_3_7_HomePage_android_懂您所需==========
+懂你所需左滑...
+正確!第一個圖片正確顯示
+正確!懂你所需左滑成功,第四個圖片正確顯示
+懂你所需右滑...
+正確!懂你所需右滑成功,第四個圖片沒有顯示
+正確!點擊懂你所需圖片跳轉至 wq6
+點擊右上角分享...
+正確!分享到標題顯示: 分享到
+正確!微信好友標題顯示: 微信好友
+正確!微信朋友圈標題顯示: 微信朋友圈
+-- tear down finished -- 
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>test_4_1_Quotation_android_行情_真實模擬切換.WebDriverTests</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c13',1)">Detail</a></td>
+</tr>
+
+<tr id='ft13.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_4_1_Quotation_android_行情_真實模擬切換</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft13.1')" >
+        error</a>
+    <div id='div_ft13.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft13.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft13.1:  -- set up finished -- 
+==========test_4_1_Quotation_android_行情_真實模擬切換==========
+真實切換模擬
+-- tear down finished -- 
+Traceback (most recent call last):
+  File "C:\Users\Angela\72apptest\testcase\Android\test_4_1_Quotation_android_行情_真實模擬切換.py", line 32, in test_4_1_Quotation_android_行情_真實模擬切換
+    el6 = self.driver.find_element_by_id(package_name+":id/tv_up")
+  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 360, in find_element_by_id
+    return self.find_element(by=By.ID, value=id_)
+  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\webdriver.py", line 281, in find_element
+    'value': value})['value']
+  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\errorhandler.py", line 31, in check_response
+    raise wde
+  File "C:\Users\Angela\Anaconda3\lib\site-packages\appium\webdriver\errorhandler.py", line 26, in check_response
+    super().check_response(response)
+  File "C:\Users\Angela\Anaconda3\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: An element could not be located on the page using the given search parameters.
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>13</td>
+    <td class="text text-success">11</td>
+    <td class="text text-danger">1</td>
+    <td class="text text-warning">1</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+    <script type="text/javascript">
+var data = [
+	{   
+	    name: 'error',
+		value: 1,
+		color: "#D35400",
+		label: "Error",
+		labelColor: 'white',
+		labelFontSize: '16'
+	},
+	{
+	    name: 'fail',
+		value : 1,
+		color : "#D4AC0D",
+		label: "Fail",
+		labelColor: 'white',
+		labelFontSize: '16'
+	},
+	{
+	    name : 'pass',
+		value : 11,
+		color : "#28B463",
+		label : "Pass",
+		labelColor: 'white',
+		labelFontSize: '16'
+	}			
+]
+var newopts = {
+     animationSteps: 100,
+ 		animationEasing: 'easeInOutQuart',
+}
+//Get the context of the canvas element we want to select
+var ctx = document.getElementById("myChart").getContext("2d");
+var myNewChart = new Chart(ctx).Pie(data,newopts);
+</script>
+	
+</body>
+</html>
