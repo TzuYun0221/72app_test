@@ -195,6 +195,9 @@ def click_mypage_message_center(self):
 def click_message_center_return(self):
 	el2 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[1]/android.widget.ImageView")
 	el2.click()
+#點擊我頁面在線客服
+def click_mypage_customer_service(self):
+	self.driver.find_element_by_id(package_name+":id/rl_user_center_live").click()
 
 #點擊首頁輪播廣告
 def click_home_banner(self):
