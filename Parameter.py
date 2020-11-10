@@ -12,6 +12,10 @@ random = Random()
 #=========UAT/PRD切換測試需更改之參數========
 # 指定OS
 OS = 'Windows'
+#登入帳戶
+main_user_id = '81018322'
+main_user_demo_id = '11002074'
+main_user_password = 'abc123'
 #UAT
 package_name = 'com.szoc.zb.cs'
 #PRD
@@ -102,6 +106,18 @@ def skip_ads_no_wait(self):
 			self.driver.find_element_by_id(element).click()
 		except NoSuchElementException:
 			continue
+	self.driver.implicitly_wait(10)
+
+#跳過文字彈窗
+def skip_pop_ups_dialog(self):
+	try:
+		#點擊文字彈窗
+		self.driver.find_element_by_xpath("//*[@text='立即前往']").click()
+		time.sleep(2)
+		#關閉文字彈窗H5
+		self.driver.find_element_by_id(package_name+":id/title_left_secondary_icon").click()
+	except NoSuchElementException:
+		pass
 
 #點允許(在app內時)
 def click_allow(self):
@@ -127,6 +143,10 @@ def press_my_button(self):
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x*0.9, y=y-1, count=1).perform()
+#行情
+def click_quotation(self):
+	element = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[2]/android.widget.LinearLayout/android.widget.ImageView")
+	element.click()
 #取得真實帳號資訊
 def get_account_information(self):
 	#點我頁面TAB(Parameter)
@@ -181,8 +201,9 @@ def click_home_banner(self):
 	time.sleep(2)
 	x=self.driver.get_window_size()['width']
 	y=self.driver.get_window_size()['height']
-	#點擊座標
-	TouchAction(self.driver).tap(element=None, x=x/2 ,y=y/5, count=1).perform()
+	for i in range(3):
+		#點擊座標
+		TouchAction(self.driver).tap(element=None, x=x/2 ,y=y/5, count=1).perform()
 #點擊首頁登入/註冊
 def click_home_register_login(self):
 	#做標定位只適用螢幕大小 2340*1080
@@ -299,13 +320,30 @@ def White_List_API(self,random_phone):
 	response = requests.request("POST", request_url, headers=headers, data = payload)
 	data = response.json()
 	print('添加白名單結果為:',data['msg'])
+#登入
+def Login(self):
+	click_home_register_login(self)
+	el1 = self.driver.find_element_by_id(package_name+":id/loginnameEditText")
+	el1.clear()
+	el1.send_keys(main_user_id)
+	el2 = self.driver.find_element_by_id(package_name+":id/password")
+	el2.clear()
+	el2.send_keys(main_user_password)
+	el3 = self.driver.find_element_by_id(package_name+":id/sign_in_button")
+	el3.click()
+	#跳廣告
+	skip_ads_no_wait(self)
 #登出
 def Logout(self):
+	#切至我的頁面
 	press_my_button(self)
+	#點擊設置
 	el1 = self.driver.find_element_by_id(package_name+":id/iv_user_center_setting")
 	el1.click()
+	#退出登錄
 	el2 = self.driver.find_element_by_xpath("//*[@text='退出登录']")
 	el2.click()
+	#確認
 	el3 = self.driver.find_element_by_id(package_name+":id/action_btn_pos")
 	el3.click()
 

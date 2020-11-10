@@ -13,8 +13,6 @@ class WebDriverTests(unittest.TestCase):
 		print(" -- set up finished -- ")
 
 	def tearDown(self):
-		#登出(Parameter)
-		Logout(self)
 		#關閉app
 		self.driver.quit()
 		print('-- tear down finished -- ')
@@ -53,17 +51,19 @@ class WebDriverTests(unittest.TestCase):
 		el1 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[1]/android.widget.EditText")
 		el1.click()
 		el1.send_keys(random_phone)
-		time.sleep(2)
+		time.sleep(1)
 		#自設密碼
 		el2 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[2]/android.widget.EditText")
 		el2.click()
 		el2.send_keys(random_password)
-		time.sleep(2)
+		time.sleep(1)
 		#手機驗證碼
 		el3 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.EditText")
 		el3.click()
 		el3.send_keys(verification_code)
-		time.sleep(2)
+		time.sleep(1)
+		#收起觸控鍵盤
+		self.driver.hide_keyboard()
 		#提交資料
 		el4 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[4]")
 		el4.click()
@@ -92,19 +92,22 @@ class WebDriverTests(unittest.TestCase):
 		el5 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[1]/android.widget.EditText")
 		el5.click()
 		el5.send_keys(random_name)
-		time.sleep(2)
+		time.sleep(1)
 		#填身分證號
 		el6 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[3]/android.widget.EditText")
 		el6.click()
 		el6.send_keys(random_id)
-		time.sleep(2)
+		time.sleep(1)
 		#填常用郵箱
 		el7 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[4]/android.widget.EditText")
 		el7.click()
 		el7.send_keys('yoyo.ho@itnsl.net')
-		time.sleep(2)
+		time.sleep(1)
+		#收起觸控鍵盤
+		self.driver.hide_keyboard()
 		#完成開戶
 		el8 = self.driver.find_element_by_xpath('//android.view.View[@content-desc="完成开户"]/android.widget.TextView')
+		time.sleep(1)
 		el8.click()
 
 		success_text_expect = random_phone + '真实账号注册成功'
@@ -117,4 +120,7 @@ class WebDriverTests(unittest.TestCase):
 		
 		#確認立記體驗是否會自動登入,並存取帳戶資訊至csv
 		check_new_account_login(self,'真實',random_password)
+
+		#登出(Parameter)
+		Logout(self)
 		

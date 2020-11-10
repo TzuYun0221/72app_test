@@ -27,7 +27,7 @@ class WebDriverTests(unittest.TestCase):
 		self.driver.find_element_by_xpath("//*[@text='关于创富']").click()
 		#檢查关于创富H5頁面
 		tab_list = [about_us_expect,'安全保障','运营数据','荣誉奖项','联系我们']
-		check_list = [about_us_expect,'安全保障让您的投资安全无忧','安全运营','荣誉奖项屡获殊荣 我们一同见证','客服邮箱 cs@cf139.com']
+		check_list = [about_us_expect,'安全保障让您的投资安全无忧','安全运营','荣誉奖项屡获殊荣 我们一同见证','客服邮箱']
 		#算list長度
 		length = len(tab_list)
 		for i in range(length):
