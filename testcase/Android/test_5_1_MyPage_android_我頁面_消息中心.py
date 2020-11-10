@@ -22,6 +22,16 @@ class WebDriverTests(unittest.TestCase):
 		print('==========test_5_1_MyPage_android_我頁面_消息中心==========')
 		#點擊我的頁面
 		press_my_button(self)
-		#點擊我頁面在線客服
-		click_mypage_customer_service(self)
-		
+		#點擊我頁面消息中心
+		click_mypage_message_center(self)
+		print('我頁面消息中心')
+		#消息中心 重要公告 系统维护 交易安排 行情提醒
+		check_titles = ['消息中心','重要公告','系统维护','交易安排','行情提醒']
+
+		for title in check_titles:
+			try:
+				self.driver.find_element_by_xpath("//*[@text='"+title+"']")
+				print('正確!"'+title+'"正常顯示')
+			except NoSuchElementException:
+				print('錯誤!"'+title+'"沒有顯示')
+				raise AssertionError('錯誤!"'+title+'"沒有顯示')
