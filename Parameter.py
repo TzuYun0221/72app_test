@@ -12,22 +12,22 @@ random = Random()
 #=========UAT/PRD切換測試需更改之參數========
 # 指定OS
 OS = 'Windows'
-#登入帳戶
-main_user_id = '81018322'
-main_user_demo_id = '11002074'
-main_user_password = 'abc123'
 #UAT
-package_name = 'com.szoc.zb.cs'
+#package_name = 'com.szoc.zb.cs'
 #PRD
-#package_name = 'com.gwtsz.gts2.cf'
+package_name = 'com.gwtsz.gts2.cf'
 #包為PRD
 if(package_name == 'com.gwtsz.gts2.cf'):
 	#指定apk路徑
-	apk_url = 'C:/Users/Angela/72apptest/release-cf-1.8.2-release_182_jiagu_sign_zp.apk'
+	apk_url = 'C:/Users/Angela/72apptest/20201111-prd-cf-1.8.3-release.apk'
 	#應用名稱&版本號(用於關於我們檢查)
-	app_name_version_expect = '创富CFD V_1.8.2'
+	app_name_version_expect = '创富CFD V_1.8.3'
 	#關於創富(用於關於創富檢查)
 	about_us_expect = '关于创富'
+	#登入帳戶
+	main_user_id = '81135805'
+	main_user_demo_id = '11092003'
+	main_user_password = 'abc123'
 #包為UAT
 else:
 	#指定apk路徑
@@ -36,6 +36,10 @@ else:
 	app_name_version_expect = 'ISTONE V_1.8.3'
 	#關於創富(用於關於創富檢查)
 	about_us_expect = '关于神龙科技'
+	#登入帳戶
+	main_user_id = '81018322'
+	main_user_demo_id = '11002074'
+	main_user_password = 'abc123'
 #=========UAT/PRD切換測試需更改之參數========
 
 account_csv = '帳號列表.csv'
@@ -199,6 +203,10 @@ def click_message_center_return(self):
 def click_mypage_customer_service(self):
 	self.driver.find_element_by_id(package_name+":id/rl_user_center_live").click()
 
+#點擊我頁面切換真實模擬
+def click_mypage_switch_account(self):
+	self.driver.find_element_by_id(package_name+":id/tv_real_demo_switch").click()
+
 #點擊首頁輪播廣告
 def click_home_banner(self):
 	time.sleep(2)
@@ -325,15 +333,19 @@ def White_List_API(self,random_phone):
 	print('添加白名單結果為:',data['msg'])
 #登入
 def Login(self):
-	click_home_register_login(self)
-	el1 = self.driver.find_element_by_id(package_name+":id/loginnameEditText")
-	el1.clear()
-	el1.send_keys(main_user_id)
-	el2 = self.driver.find_element_by_id(package_name+":id/password")
-	el2.clear()
-	el2.send_keys(main_user_password)
-	el3 = self.driver.find_element_by_id(package_name+":id/sign_in_button")
-	el3.click()
+	try:
+		#點登錄註冊
+		click_home_register_login(self)
+		el1 = self.driver.find_element_by_id(package_name+":id/loginnameEditText")
+		el1.clear()
+		el1.send_keys(main_user_id)
+		el2 = self.driver.find_element_by_id(package_name+":id/password")
+		el2.clear()
+		el2.send_keys(main_user_password)
+		el3 = self.driver.find_element_by_id(package_name+":id/sign_in_button")
+		el3.click()
+	except NoSuchElementException:
+		pass
 	#跳廣告
 	skip_ads_no_wait(self)
 #登出
