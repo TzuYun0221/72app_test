@@ -207,6 +207,14 @@ def click_mypage_customer_service(self):
 def click_mypage_switch_account(self):
 	self.driver.find_element_by_id(package_name+":id/tv_real_demo_switch").click()
 
+#點擊我頁面存款
+def click_mypage_deposit(self):
+	self.driver.find_element_by_id(package_name+":id/tv_me_main_deposit").click()
+
+#點擊我頁面取款
+def click_mypage_withdraw(self):
+	self.driver.find_element_by_id(package_name+":id/tv_me_main_withdraw").click()
+
 #點擊首頁輪播廣告
 def click_home_banner(self):
 	time.sleep(2)
@@ -221,6 +229,11 @@ def click_home_register_login(self):
 	#TouchAction(self.driver).tap(x=931, y=2149).perform()
 	#文字定位全部適用,但定位時間較久
 	self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
+#關閉H5
+def close_html5(self):
+	#關閉H5
+	self.driver.find_element_by_id(package_name+":id/title_left_secondary_icon").click()
+
 #往下滑
 def scroll_down(self):
 	time.sleep(2)
@@ -333,19 +346,16 @@ def White_List_API(self,random_phone):
 	print('添加白名單結果為:',data['msg'])
 #登入
 def Login(self):
-	try:
-		#點登錄註冊
-		click_home_register_login(self)
-		el1 = self.driver.find_element_by_id(package_name+":id/loginnameEditText")
-		el1.clear()
-		el1.send_keys(main_user_id)
-		el2 = self.driver.find_element_by_id(package_name+":id/password")
-		el2.clear()
-		el2.send_keys(main_user_password)
-		el3 = self.driver.find_element_by_id(package_name+":id/sign_in_button")
-		el3.click()
-	except NoSuchElementException:
-		pass
+	#點登錄註冊
+	click_home_register_login(self)
+	el1 = self.driver.find_element_by_id(package_name+":id/loginnameEditText")
+	el1.clear()
+	el1.send_keys(main_user_id)
+	el2 = self.driver.find_element_by_id(package_name+":id/password")
+	el2.clear()
+	el2.send_keys(main_user_password)
+	el3 = self.driver.find_element_by_id(package_name+":id/sign_in_button")
+	el3.click()
 	#跳廣告
 	skip_ads_no_wait(self)
 #登出
