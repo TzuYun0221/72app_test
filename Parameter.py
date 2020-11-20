@@ -13,9 +13,9 @@ random = Random()
 # 指定OS
 OS = 'Windows'
 #UAT
-#package_name = 'com.szoc.zb.cs'
+package_name = 'com.szoc.zb.cs'
 #PRD
-package_name = 'com.gwtsz.gts2.cf'
+#package_name = 'com.gwtsz.gts2.cf'
 #包為PRD
 if(package_name == 'com.gwtsz.gts2.cf'):
 	#指定apk路徑
@@ -215,6 +215,10 @@ def click_mypage_deposit(self):
 def click_mypage_withdraw(self):
 	self.driver.find_element_by_id(package_name+":id/tv_me_main_withdraw").click()
 
+#點擊我頁面資金明細
+def click_mypage_funding_details(self):
+	self.driver.find_element_by_xpath("//*[@text='资金明细']").click()
+
 #點擊首頁輪播廣告
 def click_home_banner(self):
 	time.sleep(2)
@@ -296,7 +300,7 @@ def random_chinese_name(self):
 		random_name += chr(random.randint(0x4e00, 0x9fbf))
 	return random_name
 #產生身分證API
-def user_id_card_api(self):
+'''def user_id_card_api(self):
 	request_url = "https://www.googlespeed.cn/idcard/ajax_get_idcard"
 	years = str(random.randint(1940,2001))
 	month = str(random.randint(1,12))
@@ -315,9 +319,7 @@ def user_id_card_api(self):
 	response = requests.request("POST", request_url, headers={}, data = payload)
 
 	data = response.json()
-	return data['id_list'][0]['id_card']
-
-
+	return data['id_list'][0]['id_card']'''
 #獲取驗證碼API
 def register_demo_account_api(self,random_phone):
 	request_url = "http://mis.will68.com/ValidateCodeLog/createValidateNo"

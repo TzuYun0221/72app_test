@@ -1,6 +1,8 @@
 import unittest
 import time, os
 from Parameter import *
+#導入隨機產生身分證
+from id_number_util.identity import *
 
 class WebDriverTests(unittest.TestCase):
 	def setUp(self):
@@ -82,8 +84,11 @@ class WebDriverTests(unittest.TestCase):
 		print('測試真實開戶補充資料...')
 		#隨機中文名(Parameter)
 		random_name = random_chinese_name(self)
-		#隨機產生身分證API(Parameter)
-		random_id = user_id_card_api(self)
+		#隨機產生身分證(Parameter)
+		#random_id = user_id_card(self)
+		#隨機產生身分證(id_number_util.identity)
+		random_sex = random.randint(0, 1)  # 随机生成男(1)或女(0)
+		random_id = IdNumber.generate_id(random_sex)
 		#隨機6~8碼密碼
 		#隨機選取級別
 		random_level = random.choice(['迷你','标准','铂金','巴菲特级'])
