@@ -32,11 +32,9 @@ class WebDriverTests(unittest.TestCase):
 		#點擊首頁登入/註冊(Parameter)
 		click_home_register_login(self)		
 		#點擊開戶
-		el1 = self.driver.find_element_by_id("com.szoc.zb.cs:id/open_account_button")
-		el1.click()
+		click_login_create_account(self)
 		#點擊模擬開戶
-		el2 = self.driver.find_element_by_id("com.szoc.zb.cs:id/main_top_right_tab")
-		el2.click()
+		click_create_demo_account(self)
 		#檢查字段
 		print('檢查模擬開戶頁面是否正常')
 		check_text_list = ['模拟注册','真实姓名','手机号码','自设密码','手机验证码','获取验证码','完成开户']

@@ -16,6 +16,8 @@ OS = 'Windows'
 package_name = 'com.szoc.zb.cs'
 #PRD
 #package_name = 'com.gwtsz.gts2.cf'
+#cf2
+#package_name = 'com.gwtsz.gts2.cf2'
 #包為PRD
 if(package_name == 'com.gwtsz.gts2.cf'):
 	#指定apk路徑
@@ -29,7 +31,7 @@ if(package_name == 'com.gwtsz.gts2.cf'):
 	main_user_demo_id = '11092003'
 	main_user_password = 'abc123'
 #包為UAT
-else:
+elif(package_name == 'com.szoc.zb.cs'):
 	#指定apk路徑
 	apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
 	#應用名稱&版本號(用於關於我們檢查)
@@ -37,9 +39,23 @@ else:
 	#關於創富(用於關於創富檢查)
 	about_us_expect = '关于神龙科技'
 	#登入帳戶
-	main_user_id = '81018322'
-	main_user_demo_id = '11002074'
+	main_user_id = '81135805'
+	main_user_demo_id = '11092003'
 	main_user_password = 'abc123'
+#包為CF2
+#elif(package_name == 'com.gwtsz.gts2.cf2'):
+else:
+	#指定apk路徑
+	apk_url = 'C:/Users/Angela/72apptest/20201120-prd-cf2-1.8.3-release.apk'
+	#應用名稱&版本號(用於關於我們檢查)
+	app_name_version_expect = '柯洛夫黃金平台 V_1.8.3'
+	#關於創富(用於關於創富檢查)
+	about_us_expect = '关于创富'
+	#登入帳戶
+	main_user_id = '81134740'
+	main_user_demo_id = '11092003'
+	main_user_password = 'abc123'
+
 #=========UAT/PRD切換測試需更改之參數========
 
 account_csv = '帳號列表.csv'
@@ -88,7 +104,7 @@ def check_app_installed():
 	driver_install.quit()
 #跳過廣告
 def skip_ads(self):
-	time.sleep(7)
+	time.sleep(12)
 	#1.跳過開屏廣告 2.關版本升級 3.關彈窗廣告
 	#沒有彈出版本升級或廣告就跳過不執行
 	element_list = [package_name+':id/tv_skip',package_name+':id/btn_cancel',package_name+':id/close_btn']
@@ -233,6 +249,12 @@ def click_home_register_login(self):
 	#TouchAction(self.driver).tap(x=931, y=2149).perform()
 	#文字定位全部適用,但定位時間較久
 	self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
+#點擊開戶
+def click_login_create_account(self):
+	self.driver.find_element_by_id(package_name+":id/open_account_button").click()
+#點擊模擬開戶
+def click_create_demo_account(self):
+	self.driver.find_element_by_id(package_name+":id/main_top_right_tab").click()
 #關閉H5
 def close_html5(self):
 	#關閉H5
