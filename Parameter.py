@@ -13,9 +13,9 @@ random = Random()
 # 指定OS
 OS = 'Windows'
 #UAT
-package_name = 'com.szoc.zb.cs'
+#package_name = 'com.szoc.zb.cs'
 #PRD
-#package_name = 'com.gwtsz.gts2.cf'
+package_name = 'com.gwtsz.gts2.cf'
 #cf2
 #package_name = 'com.gwtsz.gts2.cf2'
 #包為PRD
@@ -39,8 +39,8 @@ elif(package_name == 'com.szoc.zb.cs'):
 	#關於創富(用於關於創富檢查)
 	about_us_expect = '关于神龙科技'
 	#登入帳戶
-	main_user_id = '81135805'
-	main_user_demo_id = '11092003'
+	main_user_id = '81018322'
+	main_user_demo_id = '11002074'
 	main_user_password = 'abc123'
 #包為CF2
 #elif(package_name == 'com.gwtsz.gts2.cf2'):
@@ -163,9 +163,13 @@ def press_my_button(self):
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x*0.9, y=y-1, count=1).perform()
-#行情
+#行情tab
 def click_quotation(self):
 	element = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[2]/android.widget.LinearLayout/android.widget.ImageView")
+	element.click()
+#交易tab
+def click_transaction(self):
+	element = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[3]/android.widget.LinearLayout/android.widget.ImageView")
 	element.click()
 #取得真實帳號資訊
 def get_account_information(self):
@@ -207,7 +211,9 @@ def click_home_customer_service(self):
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x*0.93 ,y=y/19, count=1).perform()
-
+#點擊我頁面設置
+def click_mypage_setting(self):
+	self.driver.find_element_by_id(package_name+":id/iv_user_center_setting").click()
 #點擊我頁面消息中心
 def click_mypage_message_center(self):
 	self.driver.find_element_by_id(package_name+":id/iv_user_center_message").click()
@@ -370,18 +376,21 @@ def White_List_API(self,random_phone):
 	print('添加白名單結果為:',data['msg'])
 #登入
 def Login(self):
-	#點登錄註冊
-	click_home_register_login(self)
-	el1 = self.driver.find_element_by_id(package_name+":id/loginnameEditText")
-	el1.clear()
-	el1.send_keys(main_user_id)
-	el2 = self.driver.find_element_by_id(package_name+":id/password")
-	el2.clear()
-	el2.send_keys(main_user_password)
-	el3 = self.driver.find_element_by_id(package_name+":id/sign_in_button")
-	el3.click()
-	#跳廣告
-	skip_ads_no_wait(self)
+	try:
+		#點登錄註冊
+		click_home_register_login(self)
+		el1 = self.driver.find_element_by_id(package_name+":id/loginnameEditText")
+		el1.clear()
+		el1.send_keys(main_user_id)
+		el2 = self.driver.find_element_by_id(package_name+":id/password")
+		el2.clear()
+		el2.send_keys(main_user_password)
+		el3 = self.driver.find_element_by_id(package_name+":id/sign_in_button")
+		el3.click()
+		#跳廣告
+		skip_ads_no_wait(self)
+	except NoSuchElementException:
+		print('已登入...\n')
 #登出
 def Logout(self):
 	#切至我的頁面
