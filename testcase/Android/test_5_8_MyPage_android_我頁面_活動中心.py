@@ -22,9 +22,7 @@ class WebDriverTests(unittest.TestCase):
 		print('==========test_5_8_MyPage_android_我頁面_活動中心==========')
 		#點擊我的頁面
 		press_my_button(self)
-		#點擊資金明細
-		click_mypage_funding_details(self)
-		#點擊更多
+		#點擊活動中心
 		self.driver.find_element_by_xpath("//*[@text='活动中心']").click()
 
 		#截取標題做比對
