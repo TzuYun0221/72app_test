@@ -27,7 +27,7 @@ def creat_suite():
     uit = unittest.TestSuite()
     #discover = unittest.defaultTestLoader.discover(testcase_path, pattern="test_*.py")
     #discover = unittest.defaultTestLoader.discover(specific_testcase_path, pattern="test_*.py")
-    discover = unittest.defaultTestLoader.discover(testcase_path, pattern="test_5_8*.py")
+    discover = unittest.defaultTestLoader.discover(testcase_path, pattern="test_5_11*.py")
 
     for test_suite in discover:
         print(test_suite)

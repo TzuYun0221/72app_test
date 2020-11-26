@@ -193,6 +193,9 @@ def get_demo_account_information(self):
 	account_num = self.driver.find_element_by_id(package_name+":id/dialog_content_text2").text
 	self.driver.find_element_by_xpath("//*[@text='知道了']").click()
 	return account_num
+#關閉分享彈窗
+def close_share_window(self):
+	self.driver.find_element_by_id(package_name+":id/btn_cancel").click()
 #點擊首頁消息中心
 def click_home_message_center(self):
 	time.sleep(2)
@@ -459,15 +462,5 @@ def check_new_account_login(self,account_type,password):
 			writed_csv.append(account_information)
 			#寫入CSV
 			writer.writerows(writed_csv)
-
-
-
-
-
-
-
-
-		
-
 
 
