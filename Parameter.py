@@ -18,12 +18,14 @@ OS = 'Windows'
 package_name = 'com.gwtsz.gts2.cf'
 #cf2
 #package_name = 'com.gwtsz.gts2.cf2'
+#專案目錄
+dir_path = os.path.dirname(os.path.realpath(__file__))
 #包為PRD
 if(package_name == 'com.gwtsz.gts2.cf'):
 	#指定apk路徑
-	apk_url = 'C:/Users/Angela/72apptest/20201111-prd-cf-1.8.3-release.apk'
+	apk_url = dir_path + '/release-cf-1.8.5-release_185_jiagu_sign_zp.apk'
 	#應用名稱&版本號(用於關於我們檢查)
-	app_name_version_expect = '创富CFD V_1.8.3'
+	app_name_version_expect = '创富CFD V_1.8.5'
 	#關於創富(用於關於創富檢查)
 	about_us_expect = '关于创富'
 	#登入帳戶
@@ -33,7 +35,7 @@ if(package_name == 'com.gwtsz.gts2.cf'):
 #包為UAT
 elif(package_name == 'com.szoc.zb.cs'):
 	#指定apk路徑
-	apk_url = 'C:/Users/Angela/72apptest/1027-uat-cs-1.8.3-release.apk'
+	apk_url = dir_path + '/1027-uat-cs-1.8.3-release.apk'
 	#應用名稱&版本號(用於關於我們檢查)
 	app_name_version_expect = 'ISTONE V_1.8.3'
 	#關於創富(用於關於創富檢查)
@@ -46,7 +48,7 @@ elif(package_name == 'com.szoc.zb.cs'):
 #elif(package_name == 'com.gwtsz.gts2.cf2'):
 else:
 	#指定apk路徑
-	apk_url = 'C:/Users/Angela/72apptest/20201120-prd-cf2-1.8.3-release.apk'
+	apk_url = dir_path + '/20201120-prd-cf2-1.8.3-release.apk'
 	#應用名稱&版本號(用於關於我們檢查)
 	app_name_version_expect = '柯洛夫黃金平台 V_1.8.3'
 	#關於創富(用於關於創富檢查)
