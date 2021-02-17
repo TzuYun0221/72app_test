@@ -27,18 +27,18 @@ class WebDriverTests(unittest.TestCase):
 		self.driver.find_element_by_xpath("//*[@text='关于创富']").click()
 		#檢查关于创富H5頁面
 		tab_list = [about_us_expect,'安全保障','运营数据','荣誉奖项','联系我们']
-		check_list = [about_us_expect,'安全保障让您的投资安全无忧','安全运营','荣誉奖项屡获殊荣 我们一同见证','客服邮箱']
+		#check_list = [about_us_expect,'安全保障让您的投资安全无忧','安全运营','荣誉奖项屡获殊荣 我们一同见证','客服邮箱']
 		#算list長度
 		length = len(tab_list)
 		for i in range(length):
 			#檢查各個tab
 			try:
-				self.driver.find_element_by_xpath("//*[@text='"+tab_list[i]+"']").click()
+				self.driver.find_element_by_accessibility_id(tab_list[i]).click()
 				print('正確!"'+tab_list[i]+'"tab正常顯示')
 			except NoSuchElementException:
 				print('錯誤!"'+tab_list[i]+'"沒有顯示')
 				raise AssertionError('錯誤!"'+tab_list[i]+'"沒有顯示')
-			#跳過'关于神龙科技'頁面的檢查,因抓不到元素
+			'''#跳過'关于神龙科技'頁面的檢查,因抓不到元素
 			if(i==0):
 				continue
 			#檢查各個tab的頁面
@@ -47,6 +47,6 @@ class WebDriverTests(unittest.TestCase):
 				print('正確!"'+tab_list[i]+'"顯示:',check_list[i])
 			except NoSuchElementException:
 				print('錯誤!"'+tab_list[i]+'"沒有顯示',check_list[i])
-				raise AssertionError('錯誤!"'+tab_list[i]+'"沒有顯示',check_list[i])
+				raise AssertionError('錯誤!"'+tab_list[i]+'"沒有顯示',check_list[i])'''
 
 

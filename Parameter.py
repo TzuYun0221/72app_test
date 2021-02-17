@@ -4,6 +4,7 @@ from appium import webdriver
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import NoSuchElementException
 from random import Random
+from datetime import datetime
 import unittest, time, re, os
 import json
 import requests
@@ -13,9 +14,9 @@ random = Random()
 # 指定OS
 OS = 'Windows'
 #UAT
-#package_name = 'com.szoc.zb.cs'
+package_name = 'com.szoc.zb.cs'
 #PRD
-package_name = 'com.gwtsz.gts2.cf'
+#package_name = 'com.gwtsz.gts2.cf'
 #cf2
 #package_name = 'com.gwtsz.gts2.cf2'
 #專案目錄
@@ -35,7 +36,7 @@ if(package_name == 'com.gwtsz.gts2.cf'):
 #包為UAT
 elif(package_name == 'com.szoc.zb.cs'):
 	#指定apk路徑
-	apk_url = dir_path + '/1027-uat-cs-1.8.3-release.apk'
+	apk_url = dir_path + '/2021-02-17-uat-cs-1.8.6-release.apk'
 	#應用名稱&版本號(用於關於我們檢查)
 	app_name_version_expect = 'ISTONE V_1.8.3'
 	#關於創富(用於關於創富檢查)
@@ -165,6 +166,8 @@ def press_my_button(self):
 	y=self.driver.get_window_size()['height']
 	#點擊座標
 	TouchAction(self.driver).tap(element=None, x=x*0.9, y=y-1, count=1).perform()
+	#element = self.driver.find_element_by_id('com.gwtsz.gts2.cf:id/radio_button_text').find_element_by_xpath("//*[@text='我的']")
+	#element.click()
 #行情tab
 def click_quotation(self):
 	element = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[2]/android.widget.LinearLayout/android.widget.ImageView")
@@ -257,9 +260,9 @@ def click_home_banner(self):
 #點擊首頁登入/註冊
 def click_home_register_login(self):
 	#做標定位只適用螢幕大小 2340*1080
-	#TouchAction(self.driver).tap(x=931, y=2149).perform()
+	TouchAction(self.driver).tap(x=931, y=2149).perform()
 	#文字定位全部適用,但定位時間較久
-	self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
+	#self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
 #點擊開戶
 def click_login_create_account(self):
 	self.driver.find_element_by_id(package_name+":id/open_account_button").click()
@@ -412,6 +415,8 @@ def Logout(self):
 
 
 def check_new_account_login(self,account_type,password):
+	#當前時間
+	current_time = datetime.now().isoformat()
 	if(account_type=='真實'):
 		try:
 			#點立擊體驗
@@ -433,8 +438,8 @@ def check_new_account_login(self,account_type,password):
 		#寫入(新增帳號資訊)
 		with open(account_csv, 'w', newline='',encoding="utf-8") as csvfile:
 			writer = csv.writer(csvfile)
-			#寫入[帳號,密碼,真實/模擬,帳戶等級]
-			account_information = [account_num,password,account_type,account_lvl]
+			#寫入[帳號,密碼,真實/模擬,帳戶等級,當前時間]
+			account_information = [account_num,password,account_type,account_lvl,current_time]
 			writed_csv.append(account_information)
 			# 寫入CSV
 			writer.writerows(writed_csv)
@@ -459,8 +464,8 @@ def check_new_account_login(self,account_type,password):
 		#寫入(新增帳號資訊)
 		with open(account_csv, 'w', newline='',encoding="utf-8") as csvfile:
 			writer = csv.writer(csvfile)
-			#寫入[帳號,密碼,真實/模擬,帳戶等級]
-			account_information = [account_num,password,account_type,'']
+			#寫入[帳號,密碼,真實/模擬,帳戶等級,當前時間]
+			account_information = [account_num,password,account_type,'',current_time]
 			writed_csv.append(account_information)
 			#寫入CSV
 			writer.writerows(writed_csv)
