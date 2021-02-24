@@ -22,21 +22,20 @@ class WebDriverTests(unittest.TestCase):
 
 	def test_3_5_HomePage_android_真實賬戶開戶(self):
 		print('==========test_3_5_HomePage_android_真實賬戶開戶==========')
-		#若為PRD執行則跳過此測試
+		'''#若為PRD執行則跳過此測試
 		if(package_name == 'com.gwtsz.gts2.cf'):
-			raise AssertionError('錯誤!PRD目前無法自動化測試真實開戶')
+			raise AssertionError('錯誤!PRD目前無法自動化測試真實開戶')'''
 		#隨機產生手機號碼
 		random_phone = random_phone_number(self)
 		#透過api將手機號碼驗証碼產生
 		verification_code = register_demo_account_api(self,random_phone)
 		#隨機產生密碼
-		random_password = generate_random_password(self)
+		#random_password = generate_random_password(self)
+		random_password = 'abc123'
 		#透過api將手機號碼加至白名單
 		White_List_API(self,random_phone)
-		#點擊首頁登入/註冊(Parameter)
-		click_home_register_login(self)		
-		#點擊開戶
-		click_login_create_account(self)
+		#點擊首頁開立真實賬戶
+		click_home_real_account(self)
 		#檢查字段
 		print('檢查真實開戶頁面是否正常')
 		check_text_list = ['真实开户','手机号码','自设密码','手机验证码','获取验证码','提交资料']

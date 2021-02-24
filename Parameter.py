@@ -19,6 +19,8 @@ package_name = 'com.szoc.zb.cs'
 #package_name = 'com.gwtsz.gts2.cf'
 #cf2
 #package_name = 'com.gwtsz.gts2.cf2'
+#cf3
+#package_name = 'com.gwtsz.gts2.cf3'
 #專案目錄
 dir_path = os.path.dirname(os.path.realpath(__file__))
 #包為PRD
@@ -46,8 +48,8 @@ elif(package_name == 'com.szoc.zb.cs'):
 	main_user_demo_id = '11002074'
 	main_user_password = 'abc123'
 #包為CF2
-#elif(package_name == 'com.gwtsz.gts2.cf2'):
-else:
+elif(package_name == 'com.gwtsz.gts2.cf2'):
+#else:
 	#指定apk路徑
 	apk_url = dir_path + '/20201120-prd-cf2-1.8.3-release.apk'
 	#應用名稱&版本號(用於關於我們檢查)
@@ -55,6 +57,18 @@ else:
 	#關於創富(用於關於創富檢查)
 	about_us_expect = '关于创富'
 	#登入帳戶
+	main_user_id = '81134740'
+	main_user_demo_id = '11092003'
+	main_user_password = 'abc123'
+#包為CF3
+else:
+	# 指定apk路徑
+	apk_url = dir_path + 'release-cf3-1.8.5-release_185_jiagu_sign_zp-update&utm_medium=bycfd.apk'
+	# 應用名稱&版本號(用於關於我們檢查)
+	app_name_version_expect = '白银交易平台 V_1.8.5'
+	# 關於創富(用於關於創富檢查)
+	about_us_expect = '关于创富'
+	# 登入帳戶
 	main_user_id = '81134740'
 	main_user_demo_id = '11092003'
 	main_user_password = 'abc123'
@@ -260,9 +274,12 @@ def click_home_banner(self):
 #點擊首頁登入/註冊
 def click_home_register_login(self):
 	#做標定位只適用螢幕大小 2340*1080
-	TouchAction(self.driver).tap(x=931, y=2149).perform()
+	#TouchAction(self.driver).tap(x=931, y=2149).perform()
 	#文字定位全部適用,但定位時間較久
-	#self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
+	self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
+def click_home_real_account(self):
+	#點擊首頁開立真實賬戶
+	self.driver.find_element_by_id(package_name + ":id/tv_open_two").click()
 #點擊開戶
 def click_login_create_account(self):
 	self.driver.find_element_by_id(package_name+":id/open_account_button").click()
@@ -358,30 +375,80 @@ def random_chinese_name(self):
 	return data['id_list'][0]['id_card']'''
 #獲取驗證碼API
 def register_demo_account_api(self,random_phone):
-	request_url = "http://mis.will68.com/ValidateCodeLog/createValidateNo"
+	if(package_name == 'com.szoc.zb.cs'):
+		request_url = "http://mis.will68.com/ValidateCodeLog/createValidateNo"
 
-	payload = random_phone
-	headers = {
-	  'Cookie': '_ga=GA1.1.280281216.1603264849; _ga_DR6HQD5SM3=GS1.1.1604370924.4.0.1604370929.0; JSESSIONID=6E3FAB6D7BD7F37DC94282001269EB03; lang_type=0; cf88_id="user:1:3dce2613-06a3-45b3-ad00-6ba6f75d79a3"',
-	  'Content-Type': 'text/plain'
-	}
+		payload = random_phone
+		headers = {
+		  'Cookie': '_ga=GA1.1.280281216.1603264849; _ga_DR6HQD5SM3=GS1.1.1604370924.4.0.1604370929.0; JSESSIONID=6E3FAB6D7BD7F37DC94282001269EB03; lang_type=0; cf88_id="user:1:3dce2613-06a3-45b3-ad00-6ba6f75d79a3"',
+		  'Content-Type': 'text/plain'
+		}
 
-	response = requests.request("POST", request_url, headers=headers, data = payload)
-	data = response.json()
-	#回傳驗證碼
-	return data['data']
+		response = requests.request("POST", request_url, headers=headers, data = payload)
+		data = response.json()
+		#回傳驗證碼
+		return data['data']
+	else:
+		request_url = "https://office.cf139.com/ValidateCodeLog/createValidateNo"
+
+		payload = random_phone
+		headers = {
+		  'Connection': 'close',
+		  'authority': 'office.cf139.com',
+		  'accept': 'application/json, text/plain, */*',
+		  'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+		  'content-type': 'application/json;charset=UTF-8',
+		  'origin': 'https://office.cf139.com',
+		  'sec-fetch-site': 'same-origin',
+		  'sec-fetch-mode': 'cors',
+		  'sec-fetch-dest': 'empty',
+		  'referer': 'https://office.cf139.com/home/validater/validateNo',
+		  'accept-language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+		  'cookie': 'lang_type=0; JSESSIONID=84871DBC50AD6CCE38923B5F4F7FC5DF; cf88_id="user:763:869480c1-ce0e-4232-9a65-65b9336b2cec"'
+		}
+
+		response = requests.request("POST", request_url, headers=headers, data = payload,verify = False)
+		#print(response.text.encode('utf8'))
+		data = response.json()
+		#回傳驗證碼
+		return data['data']
 
 #添加白名單API
 def White_List_API(self,random_phone):
-	request_url = "http://mis.will68.com/whitelists/edit"
-	payload = "{\"status\": 1, \"phone\": \""+random_phone+"\"}"
-	headers = {
-	  'Cookie': '_ga=GA1.1.280281216.1603264849; _ga_DR6HQD5SM3=GS1.1.1604370924.4.0.1604370929.0; lang_type=0; JSESSIONID=C3883C50852D325D183B1E41F2DC8EF3; cf88_id="user:1:e7b99c9d-3916-461a-8d2d-975f7eeb18d7"',
-	  'Content-Type': 'application/json'
-	}
-	response = requests.request("POST", request_url, headers=headers, data = payload)
-	data = response.json()
-	print('添加白名單結果為:',data['msg'])
+	if(package_name == 'com.szoc.zb.cs'):
+		request_url = "http://mis.will68.com/whitelists/edit"
+		payload = "{\"status\": 1, \"phone\": \""+random_phone+"\"}"
+		headers = {
+		  'Cookie': '_ga=GA1.1.280281216.1603264849; _ga_DR6HQD5SM3=GS1.1.1604370924.4.0.1604370929.0; lang_type=0; JSESSIONID=C3883C50852D325D183B1E41F2DC8EF3; cf88_id="user:1:e7b99c9d-3916-461a-8d2d-975f7eeb18d7"',
+		  'Content-Type': 'application/json'
+		}
+		response = requests.request("POST", request_url, headers=headers, data = payload)
+		data = response.json()
+		print('添加白名單結果為:',data['msg'])
+	else:
+		request_url = "https://office.cf139.com/whitelists/edit"
+		seconds = str(int(time.time()))
+		#payload = "{\"status\":1,\"remark\":\"YoYo-自動測試\",\"phone\":\""+random_phone+"\"}"
+		payload = "{\"phone\":\""+random_phone+"\",\"createTime\":1608542350760,\"ip\":\"\",\"updateTime\":"+seconds+",\"remark\":\"YoYo-自動測試\",\"id\":1593,\"idNumber\":\"\",\"email\":\"\",\"status\":1}"
+		headers = {
+		  'authority': 'office.cf139.com',
+		  'accept': 'application/json, text/plain, */*',
+		  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
+		  'content-type': 'application/json;charset=UTF-8',
+		  'origin': 'https://office.cf139.com',
+		  'sec-fetch-site': 'same-origin',
+		  'sec-fetch-mode': 'cors',
+		  'sec-fetch-dest': 'empty',
+		  'referer': 'https://office.cf139.com/home/whitelist/index',
+		  'accept-language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+		  'cookie': 'JSESSIONID=B9F4F676CC7B8728FF5EB497C6CA6FF1; cf88_id="user:763:99919735-b166-41db-bc21-fdd84d0c6734"; lang_type=0'
+		}
+
+		response = requests.request("POST", request_url, headers=headers, data = payload.encode("utf-8").decode("latin1"),verify = False)
+		#print(response.text.encode('utf8'))
+		data = response.json()
+		#回傳驗證碼
+		return data['data']
 #登入
 def Login(self):
 	try:
