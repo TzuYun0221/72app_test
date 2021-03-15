@@ -289,6 +289,7 @@ def click_home_real_account(self):
 			#登出＋回到首頁
 			Logout(self)
 			press_home_tab(self)
+			skip_ads(self)
 
 def click_home_demo_account(self):
 	#TouchAction(self.driver).tap(x=250, y=1300).perform()
@@ -301,6 +302,7 @@ def click_home_demo_account(self):
 			#登出＋回到首頁
 			Logout(self)
 			press_home_tab(self)
+			skip_ads(self)
 #點擊開戶
 def click_login_create_account(self):
 	self.driver.find_element_by_id(package_name+":id/open_account_button").click()
