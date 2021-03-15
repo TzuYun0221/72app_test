@@ -14,11 +14,11 @@ random = Random()
 # 指定OS
 OS = 'Windows'
 #UAT
-package_name = 'com.szoc.zb.cs'
+#package_name = 'com.szoc.zb.cs'
 #PRD
 #package_name = 'com.gwtsz.gts2.cf'
 #cf2
-#package_name = 'com.gwtsz.gts2.cf2'
+package_name = 'com.gwtsz.gts2.cf2'
 #cf3
 #package_name = 'com.gwtsz.gts2.cf3'
 #專案目錄
@@ -49,11 +49,10 @@ elif(package_name == 'com.szoc.zb.cs'):
 	main_user_password = 'abc123'
 #包為CF2
 elif(package_name == 'com.gwtsz.gts2.cf2'):
-#else:
 	#指定apk路徑
 	apk_url = dir_path + '/20201120-prd-cf2-1.8.3-release.apk'
 	#應用名稱&版本號(用於關於我們檢查)
-	app_name_version_expect = '柯洛夫黃金平台 V_1.8.3'
+	app_name_version_expect = '柯洛夫黃金平台 V_1.8.6'
 	#關於創富(用於關於創富檢查)
 	about_us_expect = '关于创富'
 	#登入帳戶
@@ -262,7 +261,9 @@ def click_mypage_withdraw(self):
 #點擊我頁面資金明細
 def click_mypage_funding_details(self):
 	self.driver.find_element_by_xpath("//*[@text='资金明细']").click()
-
+#點擊首頁
+def press_home_tab(self):
+	self.driver.find_element_by_xpath("//*[@text='首页']").click()
 #點擊首頁輪播廣告
 def click_home_banner(self):
 	time.sleep(2)
@@ -278,8 +279,28 @@ def click_home_register_login(self):
 	#文字定位全部適用,但定位時間較久
 	self.driver.find_element_by_xpath("//*[@text='登录/注册']").click()
 def click_home_real_account(self):
-	#點擊首頁開立真實賬戶
-	self.driver.find_element_by_id(package_name + ":id/tv_open_two").click()
+	#TouchAction(self.driver).tap(x=750, y=1300).perform()
+	while True:
+		try:
+			#點擊首頁開立真實賬戶
+			self.driver.find_element_by_id(package_name + ":id/tv_open_two").click()
+			break
+		except NoSuchElementException:
+			#登出＋回到首頁
+			Logout(self)
+			press_home_tab(self)
+
+def click_home_demo_account(self):
+	#TouchAction(self.driver).tap(x=250, y=1300).perform()
+	while True:
+		try:
+			#點擊首頁開立模擬賬戶
+			self.driver.find_element_by_id(package_name + ":id/tv_open_one").click()
+			break
+		except NoSuchElementException:
+			#登出＋回到首頁
+			Logout(self)
+			press_home_tab(self)
 #點擊開戶
 def click_login_create_account(self):
 	self.driver.find_element_by_id(package_name+":id/open_account_button").click()
@@ -481,7 +502,7 @@ def Logout(self):
 	el3.click()
 
 
-def check_new_account_login(self,account_type,password):
+def check_new_account_login(self,account_type,password,random_phone):
 	#當前時間
 	current_time = datetime.now().isoformat()
 	if(account_type=='真實'):
@@ -505,8 +526,8 @@ def check_new_account_login(self,account_type,password):
 		#寫入(新增帳號資訊)
 		with open(account_csv, 'w', newline='',encoding="utf-8") as csvfile:
 			writer = csv.writer(csvfile)
-			#寫入[帳號,密碼,真實/模擬,帳戶等級,當前時間]
-			account_information = [account_num,password,account_type,account_lvl,current_time]
+			#寫入[帳號,手機,密碼,真實/模擬,帳戶等級,當前時間,包名]
+			account_information = [account_num,random_phone,password,account_type,account_lvl,current_time,package_name]
 			writed_csv.append(account_information)
 			# 寫入CSV
 			writer.writerows(writed_csv)
@@ -531,8 +552,8 @@ def check_new_account_login(self,account_type,password):
 		#寫入(新增帳號資訊)
 		with open(account_csv, 'w', newline='',encoding="utf-8") as csvfile:
 			writer = csv.writer(csvfile)
-			#寫入[帳號,密碼,真實/模擬,帳戶等級,當前時間]
-			account_information = [account_num,password,account_type,'',current_time]
+			#寫入[帳號,手機,密碼,真實/模擬,帳戶等級,當前時間,包名]
+			account_information = [account_num,random_phone,password,account_type,'',current_time,package_name]
 			writed_csv.append(account_information)
 			#寫入CSV
 			writer.writerows(writed_csv)

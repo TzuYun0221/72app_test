@@ -104,7 +104,7 @@ class WebDriverTests(unittest.TestCase):
 		#填常用郵箱
 		el7 = self.driver.find_element_by_xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View[5]/android.view.View[4]/android.widget.EditText")
 		el7.click()
-		el7.send_keys('yoyo.ho@itnsl.net')
+		el7.send_keys('yoyododohoho@gmail.com')
 		time.sleep(1)
 		#收起觸控鍵盤
 		self.driver.hide_keyboard()
@@ -122,7 +122,7 @@ class WebDriverTests(unittest.TestCase):
 			raise AssertionError('錯誤!開戶成功後字段沒有顯示')
 		
 		#確認立記體驗是否會自動登入,並存取帳戶資訊至csv
-		check_new_account_login(self,'真實',random_password)
+		check_new_account_login(self,'真實',random_password,random_phone)
 
 		#登出(Parameter)
 		Logout(self)
